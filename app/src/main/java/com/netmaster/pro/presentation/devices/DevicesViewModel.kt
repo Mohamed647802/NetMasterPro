@@ -4,55 +4,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.netmaster.pro.data.model.ConnectedDevice
 import com.netmaster.pro.data.model.DeviceCategory
+import com.netmaster.pro.domain.repository.DeviceRepository
+import com.netmaster.pro.notification.IntruderNotificationHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-// ─── Domain interfaces ──────────────────────────────────────────────────────
-
-interface DeviceRepository {
-    fun observeDevices(): Flow<List<ConnectedDevice>>
-    suspend fun refreshDevices(): Result<List<ConnectedDevice>>
-    suspend fun updateDevice(mac: String, nickname: String, category: DeviceCategory, isTrusted: Boolean): Result<Unit>
-    suspend fun blockDevice(mac: String): Result<Unit>
-    suspend fun unblockDevice(mac: String): Result<Unit>
-    suspend fun getDeviceHistory(mac: String): Result<List<ConnectedDevice>>
-}
-
-// (RouterRepository already declared in SignalViewModel.kt — reuse by interface reference)
-interface RouterRepositoryDevices {
-    suspend fun getLteSignal(): Result<com.netmaster.pro.data.model.LteSignalData>
-    suspend fun getGatewayIp(): String
-    suspend fun getBroadcastIp(): String
-}
-
-interface OuiDatabase {
-    suspend fun lookup(macPrefix: String): String?
-}
-
-interface IntruderNotificationHelper {
-    fun notifyNewStranger(device: ConnectedDevice)
-}
 
 enum class ScanState { IDLE, SCANNING, DONE, ERROR }
 
 enum class DeviceFilter { ALL, TRUSTED, STRANGER, BLOCKED }
-
-// ─── ViewModel ─────────────────────────────────────────────────────────────
 
 @HiltViewModel
 class DevicesViewModel @Inject constructor(
     private val deviceRepository: DeviceRepository,
     private val wakeOnLanHelper: WakeOnLanHelper,
     private val subnetScanner: SubnetScanner,
-    private val ouiDatabase: OuiDatabase,
     private val notificationHelper: IntruderNotificationHelper
 ) : ViewModel() {
 
@@ -78,9 +49,8 @@ class DevicesViewModel @Inject constructor(
     private val _wolStatus = MutableStateFlow<String?>(null)
     val wolStatus: StateFlow<String?> = _wolStatus.asStateFlow()
 
-    // Filtered + searched devices derived from raw list
     val devices: StateFlow<List<ConnectedDevice>>
-        get() = _allDevices // exposed; UI filters via derivedStateOf
+        get() = _allDevices
 
     private var autoScanJob: Job? = null
     private val _knownMacs = mutableSetOf<String>()
@@ -90,7 +60,7 @@ class DevicesViewModel @Inject constructor(
             deviceRepository.observeDevices().collect { devices ->
                 // Check for strangers
                 devices.filter { !it.isTrusted && it.mac !in _knownMacs }.forEach { stranger ->
-                    notificationHelper.notifyNewStranger(stranger)
+                    notificationHelper.showIntruderAlert(listOf(stranger))
                 }
                 _knownMacs.addAll(devices.map { it.mac })
                 _allDevices.value = devices
@@ -102,7 +72,7 @@ class DevicesViewModel @Inject constructor(
     fun refreshDevices() {
         viewModelScope.launch {
             _scanState.value = ScanState.SCANNING
-            deviceRepository.refreshDevices().fold(
+            deviceRepository.getConnectedDevices().fold(
                 onSuccess = {
                     _allDevices.value = it
                     _scanState.value = ScanState.DONE
@@ -129,7 +99,9 @@ class DevicesViewModel @Inject constructor(
 
     fun updateDevice(mac: String, nickname: String, category: DeviceCategory, isTrusted: Boolean) {
         viewModelScope.launch {
-            deviceRepository.updateDevice(mac, nickname, category, isTrusted)
+            deviceRepository.setNickname(mac, nickname)
+            deviceRepository.setCategory(mac, category)
+            deviceRepository.setTrusted(mac, isTrusted)
             refreshDevices()
         }
     }
@@ -172,9 +144,10 @@ class DevicesViewModel @Inject constructor(
         _selectedDevice.value = device
         if (device != null) {
             viewModelScope.launch {
-                deviceRepository.getDeviceHistory(device.mac).onSuccess {
-                    _deviceHistory.value = it
-                }
+                // Use the local DB history via getDeviceByMac or scan subnet
+                val history = deviceRepository.getConnectedDevices().getOrDefault(emptyList())
+                    .filter { it.mac == device.mac }
+                _deviceHistory.value = history
             }
         }
     }
@@ -189,7 +162,7 @@ class DevicesViewModel @Inject constructor(
             DeviceFilter.ALL -> base
             DeviceFilter.TRUSTED -> base.filter { it.isTrusted }
             DeviceFilter.STRANGER -> base.filter { !it.isTrusted }
-            DeviceFilter.BLOCKED -> emptyList() // blocked devices removed from active list by API
+            DeviceFilter.BLOCKED -> emptyList()
         }
         return if (query.isBlank()) filtered
         else filtered.filter { d ->

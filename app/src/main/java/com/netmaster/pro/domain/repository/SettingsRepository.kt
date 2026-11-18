@@ -67,5 +67,5 @@ interface SettingsRepository {
 }
 
 enum class AppTheme {
-    SYSTEM, LIGHT, DARK
+    SYSTEM, LIGHT, DARK, NEON_CYBER
 }

@@ -147,6 +147,12 @@ dependencies {
     // Accompanist Permissions
     implementation(libs.accompanist.permissions)
 
+    // ZXing (QR code generation)
+    implementation(libs.zxing.core)
+
+    // Coroutines Play Services (MLKit .await())
+    implementation(libs.kotlinx.coroutines.play.services)
+
     // CameraX
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.camera2)

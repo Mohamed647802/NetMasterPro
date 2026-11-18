@@ -6,7 +6,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import com.netmaster.pro.MainActivity
+import com.netmaster.pro.ui.MainActivity
 
 class NetworkStatusTile : TileService() {
 

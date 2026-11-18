@@ -3,6 +3,7 @@ package com.netmaster.pro.presentation.sms
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.netmaster.pro.data.model.SmsMessage
+import com.netmaster.pro.domain.repository.RouterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,17 +25,9 @@ sealed class UssdResult {
     data class Error(val message: String) : UssdResult()
 }
 
-// Repository interface (provided by data layer)
-interface SmsRepository {
-    suspend fun getMessages(): Result<List<SmsMessage>>
-    suspend fun deleteMessage(id: String): Result<Unit>
-    suspend fun sendSms(to: String, body: String): Result<Unit>
-    suspend fun sendUssd(code: String): Result<String>
-}
-
 @HiltViewModel
 class SmsViewModel @Inject constructor(
-    private val smsRepository: SmsRepository
+    private val routerRepository: RouterRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<SmsUiState>(SmsUiState.Loading)
@@ -53,7 +46,7 @@ class SmsViewModel @Inject constructor(
     fun loadMessages() {
         viewModelScope.launch {
             _uiState.value = SmsUiState.Loading
-            smsRepository.getMessages().fold(
+            routerRepository.getSmsMessages().fold(
                 onSuccess = { messages ->
                     _uiState.value = if (messages.isEmpty()) SmsUiState.Empty
                     else SmsUiState.Success(messages)
@@ -74,14 +67,14 @@ class SmsViewModel @Inject constructor(
     fun confirmDelete(id: String) {
         _pendingDeleteId.value = null
         viewModelScope.launch {
-            smsRepository.deleteMessage(id)
+            routerRepository.deleteSms(id)
             loadMessages()
         }
     }
 
     fun sendSms(to: String, body: String) {
         viewModelScope.launch {
-            smsRepository.sendSms(to, body).fold(
+            routerRepository.sendSms(to, body).fold(
                 onSuccess = { loadMessages() },
                 onFailure = { _uiState.value = SmsUiState.Error(it.message ?: "Send failed") }
             )
@@ -91,7 +84,7 @@ class SmsViewModel @Inject constructor(
     fun sendUssd(code: String) {
         viewModelScope.launch {
             _ussdResult.value = UssdResult.Loading
-            smsRepository.sendUssd(code).fold(
+            routerRepository.sendUssd(code).fold(
                 onSuccess = { reply -> _ussdResult.value = UssdResult.Response(code, reply) },
                 onFailure = { _ussdResult.value = UssdResult.Error(it.message ?: "USSD failed") }
             )

@@ -2,6 +2,9 @@ package com.netmaster.pro.presentation.wifi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.netmaster.pro.domain.adapter.MacFilterMode as DomainMacFilterMode
+import com.netmaster.pro.domain.adapter.WifiSettings as DomainWifiSettings
+import com.netmaster.pro.domain.repository.RouterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ─── Domain models ───────────────────────────────────────────────────────────
+// ─── Local UI models ─────────────────────────────────────────────────────────
 
 enum class WifiSecurity { WPA2_PSK, WPA2_WPA3_SAE, WPA3_SAE }
 enum class TxPower { LOW, MEDIUM, HIGH }
@@ -40,17 +43,44 @@ sealed class WifiApplyState {
     data class Error(val message: String) : WifiApplyState()
 }
 
-// Repository interface (provided by data layer)
-interface WifiRepository {
-    suspend fun getSettings(): Result<WifiSettings>
-    suspend fun applySettings(settings: WifiSettings): Result<Unit>
+// ─── Mapping helpers ──────────────────────────────────────────────────────────
+
+private fun DomainWifiSettings.toUi(): WifiSettings = WifiSettings(
+    ssid24 = ssid2g,
+    password24 = password2g,
+    ssid5 = ssid5g,
+    password5 = password5g,
+    security = when {
+        security.contains("WPA3", ignoreCase = true) && security.contains("WPA2", ignoreCase = true) ->
+            WifiSecurity.WPA2_WPA3_SAE
+        security.contains("WPA3", ignoreCase = true) -> WifiSecurity.WPA3_SAE
+        else -> WifiSecurity.WPA2_PSK
+    }
+)
+
+private fun WifiSettings.toDomain(): DomainWifiSettings = DomainWifiSettings(
+    ssid2g = ssid24,
+    password2g = password24,
+    ssid5g = ssid5,
+    password5g = password5,
+    security = when (security) {
+        WifiSecurity.WPA3_SAE -> "WPA3-SAE"
+        WifiSecurity.WPA2_WPA3_SAE -> "WPA2-PSK/WPA3-SAE"
+        else -> "WPA2-PSK"
+    }
+)
+
+private fun MacFilterMode.toDomain(): DomainMacFilterMode = when (this) {
+    MacFilterMode.BLACKLIST -> DomainMacFilterMode.BLACKLIST
+    MacFilterMode.WHITELIST -> DomainMacFilterMode.WHITELIST
+    MacFilterMode.OFF -> DomainMacFilterMode.DISABLED
 }
 
-// ─── ViewModel ─────────────────────────────────────────────────────────────
+// ─── ViewModel ────────────────────────────────────────────────────────────────
 
 @HiltViewModel
 class WifiAdminViewModel @Inject constructor(
-    private val wifiRepository: WifiRepository
+    private val routerRepository: RouterRepository
 ) : ViewModel() {
 
     private val _settings = MutableStateFlow(WifiSettings())
@@ -69,7 +99,9 @@ class WifiAdminViewModel @Inject constructor(
     private fun loadSettings() {
         viewModelScope.launch {
             _isLoading.value = true
-            wifiRepository.getSettings().onSuccess { _settings.value = it }
+            routerRepository.getWifiSettings().onSuccess { domain ->
+                _settings.value = domain.toUi()
+            }
             _isLoading.value = false
         }
     }
@@ -143,8 +175,15 @@ class WifiAdminViewModel @Inject constructor(
     fun applySettings() {
         viewModelScope.launch {
             _applyState.value = WifiApplyState.Loading
-            wifiRepository.applySettings(_settings.value).fold(
-                onSuccess = { _applyState.value = WifiApplyState.Success },
+            val current = _settings.value
+            routerRepository.setWifiSettings(current.toDomain()).fold(
+                onSuccess = {
+                    if (current.guestEnabled) {
+                        routerRepository.setGuestWifi(true, current.guestSsid, current.guestPassword)
+                    }
+                    routerRepository.setMacFilter(current.macFilterMode.toDomain(), current.macFilterList)
+                    _applyState.value = WifiApplyState.Success
+                },
                 onFailure = { _applyState.value = WifiApplyState.Error(it.message ?: "Failed") }
             )
         }

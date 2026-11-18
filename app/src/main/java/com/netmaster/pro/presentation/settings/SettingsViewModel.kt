@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.netmaster.pro.data.local.security.BiometricAuthManager
 import com.netmaster.pro.data.local.security.EncryptedPreferencesManager
-import com.netmaster.pro.ui.theme.AppTheme
+import com.netmaster.pro.domain.repository.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
