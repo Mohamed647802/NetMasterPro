@@ -4,7 +4,6 @@ import com.netmaster.pro.data.adapter.GreenpacketD2220G1Adapter
 import com.netmaster.pro.data.adapter.HuaweiAdapter
 import com.netmaster.pro.data.adapter.MikroTikAdapter
 import com.netmaster.pro.data.adapter.OpenWrtUbusAdapter
-import com.netmaster.pro.data.adapter.RouterAdapterRegistry
 import com.netmaster.pro.data.adapter.TpLinkAdapter
 import com.netmaster.pro.data.adapter.UniversalFallbackAdapter
 import com.netmaster.pro.data.adapter.ZteAdapter
