@@ -88,8 +88,9 @@ private const val MOBILE_VIEWPORT_JS = """
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RouterWebViewScreen(
-    navController: NavController,
-    routerUrl: String = "http://192.168.1.1"
+    navController: NavController? = null,
+    routerUrl: String = "http://192.168.1.1",
+    onBack: (() -> Unit)? = null
 ) {
     var currentUrl  by remember { mutableStateOf(routerUrl) }
     var pageTitle   by remember { mutableStateOf("لوحة الراوتر") }
@@ -118,7 +119,7 @@ fun RouterWebViewScreen(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { onBack?.invoke() ?: navController?.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "رجوع")
                     }
                 },

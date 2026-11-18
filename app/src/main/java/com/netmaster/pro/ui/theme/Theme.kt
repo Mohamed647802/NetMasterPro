@@ -1,5 +1,6 @@
 package com.netmaster.pro.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -8,94 +9,66 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
-// ── App theme modes ──────────────────────────────────────────────────────────
-enum class AppTheme { SYSTEM, LIGHT, DARK, NEON_CYBER }
-
-val LocalAppTheme = staticCompositionLocalOf { AppTheme.SYSTEM }
-
-// ── Color schemes ─────────────────────────────────────────────────────────────
-private val NeonCyberDarkScheme = darkColorScheme(
-    primary            = NeonCyberPrimary,
-    onPrimary          = NeonCyberOnPrimary,
-    primaryContainer   = NeonCyberPrimaryContainer,
-    secondary          = NeonCyberSecondary,
-    background         = NeonCyberBackground,
-    surface            = NeonCyberSurface,
-    surfaceVariant     = NeonCyberSurfaceVariant,
-    onBackground       = NeonCyberOnBackground,
-    onSurface          = NeonCyberOnSurface,
-    error              = NeonCyberError,
-    tertiary           = NeonCyberTertiary
+val NeonCyberDark = darkColorScheme(
+    primary          = Color(0xFF00FFCC),
+    onPrimary        = Color(0xFF003828),
+    primaryContainer = Color(0xFF00513C),
+    secondary        = Color(0xFF00B4D8),
+    onSecondary      = Color(0xFF001F28),
+    background       = Color(0xFF0A0E1A),
+    surface          = Color(0xFF0D1117),
+    surfaceVariant   = Color(0xFF1A2332),
+    onBackground     = Color(0xFFE0E0E0),
+    onSurface        = Color(0xFFE0E0E0),
+    error            = Color(0xFFCF6679),
+    tertiary         = Color(0xFF7B61FF)
 )
 
-private val CyberLightScheme = lightColorScheme(
-    primary            = CyberLightPrimary,
-    onPrimary          = CyberLightOnPrimary,
-    primaryContainer   = CyberLightPrimaryContainer,
-    secondary          = CyberLightSecondary,
-    background         = CyberLightBackground,
-    surface            = CyberLightSurface,
-    surfaceVariant     = CyberLightSurfaceVariant,
-    onBackground       = CyberLightOnBackground,
-    onSurface          = CyberLightOnSurface,
-    error              = CyberLightError,
-    tertiary           = CyberLightTertiary
-)
-
-private val CyberDarkScheme = darkColorScheme(
-    primary            = CyberDarkPrimary,
-    onPrimary          = CyberDarkOnPrimary,
-    primaryContainer   = CyberDarkPrimaryContainer,
-    secondary          = CyberDarkSecondary,
-    background         = CyberDarkBackground,
-    surface            = CyberDarkSurface,
-    surfaceVariant     = CyberDarkSurfaceVariant,
-    onBackground       = CyberDarkOnBackground,
-    onSurface          = CyberDarkOnSurface,
-    error              = CyberDarkError,
-    tertiary           = CyberDarkTertiary
+val CyberLight = lightColorScheme(
+    primary          = Color(0xFF0097A7),
+    onPrimary        = Color(0xFFFFFFFF),
+    secondary        = Color(0xFF00B4D8),
+    background       = Color(0xFFF5F5F5),
+    surface          = Color(0xFFFFFFFF),
+    onBackground     = Color(0xFF1A1A1A),
+    onSurface        = Color(0xFF1A1A1A)
 )
 
 @Composable
 fun NetMasterTheme(
-    appTheme: AppTheme = AppTheme.SYSTEM,
+    darkTheme: Boolean    = isSystemInDarkTheme(),
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
-    val systemDark = isSystemInDarkTheme()
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        darkTheme -> NeonCyberDark
+        else      -> CyberLight
+    }
 
-    val colorScheme = when (appTheme) {
-        AppTheme.NEON_CYBER -> NeonCyberDarkScheme
-        AppTheme.LIGHT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            dynamicLightColorScheme(context)
-        } else {
-            CyberLightScheme
-        }
-        AppTheme.DARK -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            dynamicDarkColorScheme(context)
-        } else {
-            CyberDarkScheme
-        }
-        AppTheme.SYSTEM -> when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && systemDark ->
-                dynamicDarkColorScheme(context)
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !systemDark ->
-                dynamicLightColorScheme(context)
-            systemDark -> CyberDarkScheme
-            else -> CyberLightScheme
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
-    CompositionLocalProvider(LocalAppTheme provides appTheme) {
-        MaterialTheme(
-            colorScheme = colorScheme,
-            typography  = NetMasterTypography,
-            shapes      = NetMasterShapes,
-            content     = content
-        )
-    }
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography  = NetMasterTypography,
+        shapes      = NetMasterShapes,
+        content     = content
+    )
 }

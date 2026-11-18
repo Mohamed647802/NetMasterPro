@@ -4,27 +4,27 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.netmaster.pro.presentation.analyzer.WifiAnalyzerScreen
-import com.netmaster.pro.presentation.devices.DevicesScreen
-import com.netmaster.pro.presentation.dsl.DslAnalyzerScreen
 import com.netmaster.pro.presentation.home.HomeScreen
-import com.netmaster.pro.presentation.parental.ParentalScreen
-import com.netmaster.pro.presentation.qos.QosScreen
-import com.netmaster.pro.presentation.qrcode.QrCodeScreen
-import com.netmaster.pro.presentation.quota.QuotaScreen
-import com.netmaster.pro.presentation.report.ReportScreen
-import com.netmaster.pro.presentation.security.SecurityAuditScreen
-import com.netmaster.pro.presentation.settings.SettingsScreen
-import com.netmaster.pro.presentation.ocr.OcrScannerScreen
 import com.netmaster.pro.presentation.signal.SignalScreen
 import com.netmaster.pro.presentation.sms.SmsScreen
-import com.netmaster.pro.presentation.speedtest.SpeedTestScreen
-import com.netmaster.pro.presentation.tools.NetworkToolsScreen
-import com.netmaster.pro.presentation.troubleshooter.TroubleshooterScreen
-import com.netmaster.pro.presentation.webview.RouterWebViewScreen
+import com.netmaster.pro.presentation.devices.DevicesScreen
 import com.netmaster.pro.presentation.wifi.WifiAdminScreen
-import com.netmaster.pro.presentation.wifiheatmap.WifiHeatmapScreen
+import com.netmaster.pro.presentation.qos.QosScreen
+import com.netmaster.pro.presentation.parental.ParentalScreen
+import com.netmaster.pro.presentation.analyzer.WifiAnalyzerScreen
+import com.netmaster.pro.presentation.speedtest.SpeedTestScreen
+import com.netmaster.pro.presentation.quota.QuotaScreen
+import com.netmaster.pro.presentation.security.SecurityAuditScreen
+import com.netmaster.pro.presentation.troubleshooter.TroubleshooterScreen
+import com.netmaster.pro.presentation.tools.NetworkToolsScreen
+import com.netmaster.pro.presentation.sharing.QrCodeScreen
+import com.netmaster.pro.presentation.sharing.OcrScannerScreen
+import com.netmaster.pro.presentation.report.ReportScreen
+import com.netmaster.pro.presentation.settings.SettingsScreen
 import com.netmaster.pro.presentation.setup.RouterSetupScreen
+import com.netmaster.pro.presentation.webview.RouterWebViewScreen
+import com.netmaster.pro.presentation.dsl.DslAnalyzerScreen
+import com.netmaster.pro.presentation.wifiheatmap.WifiHeatmapScreen
 
 sealed class Screen(val route: String) {
     object Home          : Screen("home")
@@ -52,30 +52,32 @@ sealed class Screen(val route: String) {
 
 @Composable
 fun NetMasterNavHost(navController: NavHostController) {
-    NavHost(
-        navController    = navController,
-        startDestination = Screen.Home.route
-    ) {
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route)          { HomeScreen(navController) }
-        composable(Screen.Signal.route)        { SignalScreen(navController) }
-        composable(Screen.Sms.route)           { SmsScreen(navController) }
-        composable(Screen.Devices.route)       { DevicesScreen(navController) }
-        composable(Screen.WifiAdmin.route)     { WifiAdminScreen(navController) }
+        composable(Screen.Signal.route)        { SignalScreen() }
+        composable(Screen.Sms.route)           { SmsScreen() }
+        composable(Screen.Devices.route)       { DevicesScreen() }
+        composable(Screen.WifiAdmin.route)     { WifiAdminScreen() }
         composable(Screen.Qos.route)           { QosScreen(navController) }
-        composable(Screen.Parental.route)      { ParentalScreen(navController) }
-        composable(Screen.WifiAnalyzer.route)  { WifiAnalyzerScreen(navController) }
+        composable(Screen.Parental.route)      { ParentalScreen() }
+        composable(Screen.WifiAnalyzer.route)  { WifiAnalyzerScreen() }
         composable(Screen.WifiHeatmap.route)   { WifiHeatmapScreen(navController) }
-        composable(Screen.SpeedTest.route)     { SpeedTestScreen(navController) }
-        composable(Screen.Quota.route)         { QuotaScreen(navController) }
-        composable(Screen.DslAnalyzer.route)   { DslAnalyzerScreen(navController) }
-        composable(Screen.Security.route)      { SecurityAuditScreen(navController) }
-        composable(Screen.Troubleshooter.route){ TroubleshooterScreen(navController) }
-        composable(Screen.NetworkTools.route)  { NetworkToolsScreen(navController) }
-        composable(Screen.QrCode.route)        { QrCodeScreen(navController) }
-        composable(Screen.OcrScanner.route)    { OcrScannerScreen(navController) }
-        composable(Screen.Report.route)        { ReportScreen(navController) }
+        composable(Screen.SpeedTest.route)     { SpeedTestScreen() }
+        composable(Screen.Quota.route)         { QuotaScreen() }
+        composable(Screen.DslAnalyzer.route)   { DslAnalyzerScreen() }
+        composable(Screen.Security.route)      { SecurityAuditScreen() }
+        composable(Screen.Troubleshooter.route){ TroubleshooterScreen() }
+        composable(Screen.NetworkTools.route)  { NetworkToolsScreen() }
+        composable(Screen.QrCode.route)        { QrCodeScreen() }
+        composable(Screen.OcrScanner.route)    { OcrScannerScreen() }
+        composable(Screen.Report.route)        { ReportScreen() }
         composable(Screen.Settings.route)      { SettingsScreen(navController) }
         composable(Screen.RouterSetup.route)   { RouterSetupScreen(navController) }
-        composable(Screen.RouterWebView.route) { RouterWebViewScreen(navController) }
+        composable(Screen.RouterWebView.route) {
+            RouterWebViewScreen(
+                routerUrl = "http://192.168.1.1",
+                onBack    = { navController.popBackStack() }
+            )
+        }
     }
 }
