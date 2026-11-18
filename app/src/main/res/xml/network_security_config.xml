@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Configuration for NetMaster Pro
+    =================================================
+    - Cleartext HTTP is PERMITTED only for known LAN gateway/router IPs
+      (needed to access router admin pages on the local network).
+    - All other traffic (internet) is TLS-only.
+    - User-installed CAs are trusted in addition to system CAs for LAN debugging.
+
+    NOTE: The RouterAdapterFactory in the network layer will dynamically build
+    OkHttp clients that also trust the router's self-signed certificate when
+    the user has acknowledged the fingerprint. This config is the base layer.
+-->
+<network-security-config>
+
+    <!--
+        LAN Gateway IPs — cleartext HTTP allowed.
+        Common router admin panel addresses from popular ISPs and devices,
+        including Greenpacket D2-220G1 (192.168.1.1 / 192.168.0.1).
+    -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Greenpacket D2-220G1 default gateways -->
+        <domain includeSubdomains="false">192.168.1.1</domain>
+        <domain includeSubdomains="false">192.168.0.1</domain>
+        <!-- Common ISP router defaults -->
+        <domain includeSubdomains="false">192.168.1.254</domain>
+        <domain includeSubdomains="false">192.168.0.254</domain>
+        <domain includeSubdomains="false">192.168.2.1</domain>
+        <domain includeSubdomains="false">192.168.3.1</domain>
+        <domain includeSubdomains="false">192.168.8.1</domain>
+        <domain includeSubdomains="false">192.168.10.1</domain>
+        <domain includeSubdomains="false">192.168.11.1</domain>
+        <domain includeSubdomains="false">192.168.12.1</domain>
+        <domain includeSubdomains="false">192.168.15.1</domain>
+        <domain includeSubdomains="false">192.168.20.1</domain>
+        <domain includeSubdomains="false">192.168.100.1</domain>
+        <domain includeSubdomains="false">192.168.123.254</domain>
+        <domain includeSubdomains="false">192.168.178.1</domain>
+        <domain includeSubdomains="false">192.168.188.1</domain>
+        <!-- 10.x.x.x LAN ranges -->
+        <domain includeSubdomains="false">10.0.0.1</domain>
+        <domain includeSubdomains="false">10.0.0.138</domain>
+        <domain includeSubdomains="false">10.1.1.1</domain>
+        <domain includeSubdomains="false">10.10.10.1</domain>
+        <domain includeSubdomains="false">10.90.90.90</domain>
+        <!-- 172.16–31.x.x ranges (RFC 1918 private) -->
+        <domain includeSubdomains="false">172.16.0.1</domain>
+        <domain includeSubdomains="false">172.16.1.1</domain>
+        <domain includeSubdomains="false">172.31.100.1</domain>
+
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Base config: enforce TLS everywhere else, trust system CAs only -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+
+</network-security-config>

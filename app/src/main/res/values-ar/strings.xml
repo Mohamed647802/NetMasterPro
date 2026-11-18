@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">نت ماستر برو</string>
+    <string name="app_subtitle">مدير الشبكة والراوتر الشامل</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">نت ماستر برو</string>
+    <string name="home_connected">متصل بالراوتر</string>
+    <string name="home_not_connected">لم يتم الاتصال بالراوتر</string>
+    <string name="home_connecting">جارٍ الاتصال…</string>
+    <string name="home_devices_count">%d جهاز</string>
+    <string name="home_signal_label">إشارة 4G</string>
+    <string name="home_quota_label">الباقة</string>
+    <string name="home_scan_router">بحث عن الراوتر</string>
+
+    <!-- Feature Grid Labels -->
+    <string name="feature_signal">إشارة 4G</string>
+    <string name="feature_sms">الرسائل</string>
+    <string name="feature_devices">الأجهزة المتصلة</string>
+    <string name="feature_wifi">إعدادات Wi-Fi</string>
+    <string name="feature_parental">الرقابة الأبوية</string>
+    <string name="feature_analyzer">محلل Wi-Fi</string>
+    <string name="feature_speedtest">اختبار السرعة</string>
+    <string name="feature_security">تدقيق الأمان</string>
+    <string name="feature_tools">أدوات الشبكة</string>
+    <string name="feature_report">تقرير التشخيص</string>
+    <string name="feature_settings">الإعدادات</string>
+    <string name="feature_qos">النطاق الترددي وجودة الخدمة</string>
+    <string name="feature_quota">حارس الباقة</string>
+
+    <!-- Signal Screen -->
+    <string name="signal_title">لوحة إشارة 4G</string>
+    <string name="signal_rsrp">قوة الإشارة (RSRP) dBm</string>
+    <string name="signal_rsrq">جودة الإشارة (RSRQ) dB</string>
+    <string name="signal_sinr">نسبة الإشارة للضوضاء (SINR) dB</string>
+    <string name="signal_rssi">مستوى الإشارة (RSSI) dBm</string>
+    <string name="signal_pci">معرف الخلية الفيزيائية</string>
+    <string name="signal_cell_id">معرف الخلية</string>
+    <string name="signal_enb_id">معرف eNodeB</string>
+    <string name="signal_earfcn">تردد القناة EARFCN</string>
+    <string name="signal_band">النطاق النشط</string>
+    <string name="signal_ca_active">تجميع الحاملات نشط</string>
+    <string name="signal_ca_inactive">حاملة واحدة</string>
+    <string name="signal_excellent">إشارة ممتازة — الموقع مثالي 🟢</string>
+    <string name="signal_good">إشارة جيدة — يمكن التحسين قليلاً 🟡</string>
+    <string name="signal_fair">إشارة متوسطة — جرّب نافذة أخرى 🟠</string>
+    <string name="signal_poor">إشارة ضعيفة — حرّك الراوتر باتجاه نافذة أو سطح مرتفع 🔴</string>
+    <string name="signal_interference">التشويش مرتفع — ابتعد عن الأجهزة الكهربائية ⚠️</string>
+    <string name="signal_placement_start">بدء مساعد تحديد الموقع</string>
+    <string name="signal_placement_stop">إيقاف مساعد تحديد الموقع</string>
+    <string name="signal_placement_instruction">امشِ ببطء واستمع إلى نغمة الإشارة</string>
+    <string name="signal_refresh">تحديث الإشارة</string>
+    <string name="network_mode_4g_only">4G فقط</string>
+    <string name="network_mode_auto">4G/3G تلقائي</string>
+    <string name="network_mode_3g_only">3G فقط</string>
+    <string name="band_lock_title">قفل نطاق LTE</string>
+    <string name="band_apply">تطبيق اختيار النطاق</string>
+
+    <!-- Devices Screen -->
+    <string name="devices_title">الأجهزة المتصلة</string>
+    <string name="devices_filter_all">الكل</string>
+    <string name="devices_filter_trusted">موثوقة</string>
+    <string name="devices_filter_strangers">غير معروفة</string>
+    <string name="devices_filter_blocked">محظورة</string>
+    <string name="devices_block">حظر الجهاز</string>
+    <string name="devices_unblock">إلغاء حظر الجهاز</string>
+    <string name="devices_trust">تعيين كموثوق</string>
+    <string name="devices_rename">إعادة تسمية الجهاز</string>
+    <string name="devices_wol">التشغيل عبر الشبكة</string>
+    <string name="devices_intruder_banner">⚠️ جهاز غير معروف متصل! اضغط للعرض.</string>
+    <string name="devices_block_now">حظر الآن</string>
+    <string name="devices_vendor_unknown">مصنّع غير معروف</string>
+    <string name="devices_last_seen">آخر ظهور: %s</string>
+    <string name="devices_first_seen">أول اتصال: %s</string>
+    <string name="devices_lease_time">تنتهي صلاحية الإيجار: %s</string>
+    <string name="devices_category_phone">هاتف</string>
+    <string name="devices_category_tablet">جهاز لوحي</string>
+    <string name="devices_category_tv">تلفاز ذكي</string>
+    <string name="devices_category_console">وحدة ألعاب</string>
+    <string name="devices_category_pc">حاسوب</string>
+    <string name="devices_category_laptop">حاسوب محمول</string>
+    <string name="devices_category_iot">جهاز إنترنت الأشياء</string>
+    <string name="devices_category_camera">كاميرا IP</string>
+    <string name="devices_category_printer">طابعة</string>
+    <string name="devices_category_speaker">مكبر صوت ذكي</string>
+    <string name="devices_scanning">جارٍ فحص الشبكة…</string>
+    <string name="devices_empty">لم يتم العثور على أجهزة</string>
+
+    <!-- Wi-Fi Admin Screen -->
+    <string name="wifi_title">إعدادات Wi-Fi</string>
+    <string name="wifi_ssid_24">اسم الشبكة (2.4GHz)</string>
+    <string name="wifi_ssid_5">اسم الشبكة (5GHz)</string>
+    <string name="wifi_password">كلمة مرور Wi-Fi</string>
+    <string name="wifi_security">وضع الأمان</string>
+    <string name="wifi_hide_ssid">إخفاء اسم الشبكة</string>
+    <string name="wifi_max_clients">الحد الأقصى للأجهزة المتصلة</string>
+    <string name="wifi_tx_power">قوة الإرسال</string>
+    <string name="wifi_tx_low">منخفضة</string>
+    <string name="wifi_tx_medium">متوسطة</string>
+    <string name="wifi_tx_high">عالية</string>
+    <string name="wifi_apply">تطبيق الإعدادات</string>
+    <string name="wifi_guest_title">Wi-Fi للضيوف</string>
+    <string name="wifi_guest_enable">تفعيل شبكة الضيوف</string>
+    <string name="wifi_guest_ssid">اسم شبكة الضيوف</string>
+    <string name="wifi_guest_password">كلمة مرور الضيوف</string>
+    <string name="wifi_guest_timer">التعطيل التلقائي بعد</string>
+    <string name="wifi_mac_filter">فلتر MAC</string>
+    <string name="wifi_mac_blacklist">قائمة سوداء (حظر محدد)</string>
+    <string name="wifi_mac_whitelist">قائمة بيضاء (السماح للمدرجين فقط)</string>
+    <string name="wifi_mac_disabled">معطل</string>
+    <string name="wifi_reboot">إعادة تشغيل الراوتر</string>
+    <string name="wifi_reboot_confirm">هل أنت متأكد من إعادة تشغيل الراوتر؟</string>
+    <string name="wifi_schedule_reboot">جدولة إعادة التشغيل</string>
+    <string name="wifi_backup">تنزيل نسخة احتياطية من الإعدادات</string>
+    <string name="wifi_restore">استعادة الإعدادات</string>
+    <string name="password_weak">ضعيفة</string>
+    <string name="password_fair">مقبولة</string>
+    <string name="password_good">جيدة</string>
+    <string name="password_strong">قوية</string>
+
+    <!-- SMS Screen -->
+    <string name="sms_title">رسائل شريحة الراوتر</string>
+    <string name="sms_inbox">صندوق الوارد</string>
+    <string name="sms_compose">رسالة جديدة</string>
+    <string name="sms_to">إلى</string>
+    <string name="sms_body">الرسالة</string>
+    <string name="sms_send">إرسال</string>
+    <string name="sms_delete_confirm">حذف هذه الرسالة؟</string>
+    <string name="ussd_title">رمز USSD</string>
+    <string name="ussd_send">إرسال USSD</string>
+    <string name="ussd_balance">الاستعلام عن الرصيد</string>
+    <string name="ussd_data">الاستعلام عن باقة البيانات</string>
+
+    <!-- Parental Controls -->
+    <string name="parental_title">الرقابة الأبوية</string>
+    <string name="parental_pause">إيقاف الإنترنت</string>
+    <string name="parental_resume">استئناف الإنترنت</string>
+    <string name="parental_duration_30m">30 دقيقة</string>
+    <string name="parental_duration_1h">ساعة واحدة</string>
+    <string name="parental_duration_2h">ساعتان</string>
+    <string name="parental_duration_custom">مخصص</string>
+    <string name="parental_bedtime">جدول وقت النوم</string>
+    <string name="parental_dns_shield">درع DNS</string>
+    <string name="dns_family">حماية الأسرة</string>
+    <string name="dns_family_desc">حجب المحتوى غير اللائق (Cloudflare 1.1.1.3)</string>
+    <string name="dns_adblock">حجب الإعلانات والمتتبعين</string>
+    <string name="dns_adblock_desc">حجب الإعلانات والمتتبعين (AdGuard)</string>
+    <string name="dns_gaming">أسرع DNS للألعاب</string>
+    <string name="dns_gaming_desc">قياس وتطبيق أسرع DNS تلقائياً</string>
+    <string name="dns_google">Google DNS</string>
+    <string name="dns_custom">DNS مخصص</string>
+    <string name="dns_benchmark_running">جارٍ قياس أداء مزودي DNS…</string>
+    <string name="dns_apply">تطبيق DNS</string>
+    <string name="blacklist_title">قائمة حظر النطاقات</string>
+    <string name="blacklist_add">إضافة نطاق</string>
+    <string name="blacklist_remove">إزالة</string>
+
+    <!-- Wi-Fi Analyzer -->
+    <string name="analyzer_title">محلل Wi-Fi</string>
+    <string name="analyzer_ssid">الشبكة</string>
+    <string name="analyzer_bssid">نقطة الوصول</string>
+    <string name="analyzer_speed">سرعة الاتصال</string>
+    <string name="analyzer_frequency">التردد</string>
+    <string name="analyzer_standard">معيار Wi-Fi</string>
+    <string name="analyzer_channel_width">عرض القناة</string>
+    <string name="analyzer_local_ip">IP المحلي</string>
+    <string name="analyzer_gateway">البوابة الافتراضية</string>
+    <string name="analyzer_dns">DNS</string>
+    <string name="analyzer_channels_24">قنوات 2.4GHz</string>
+    <string name="analyzer_channels_5">قنوات 5GHz</string>
+    <string name="analyzer_best_channel">أفضل قناة: %d</string>
+    <string name="analyzer_apply_channel">تطبيق أفضل قناة تلقائياً</string>
+    <string name="heatmap_title">خريطة تغطية الغرف</string>
+    <string name="heatmap_tap_room">اضغط على غرفة لقياس الإشارة</string>
+    <string name="heatmap_measuring">جارٍ القياس…</string>
+    <string name="heatmap_advice">الموقع المقترح للموسّع: %s</string>
+
+    <!-- Speed Test -->
+    <string name="speedtest_title">اختبار السرعة</string>
+    <string name="speedtest_start">بدء اختبار السرعة</string>
+    <string name="speedtest_lan_phase">جارٍ اختبار سرعة Wi-Fi المحلية…</string>
+    <string name="speedtest_wan_phase">جارٍ اختبار سرعة الإنترنت…</string>
+    <string name="speedtest_download">التنزيل</string>
+    <string name="speedtest_upload">الرفع</string>
+    <string name="speedtest_ping">زمن الاستجابة</string>
+    <string name="speedtest_jitter">التذبذب</string>
+    <string name="speedtest_bufferbloat">تضخم المخزن المؤقت</string>
+    <string name="speedtest_grade_a">تقييم A+ — ممتاز</string>
+    <string name="speedtest_grade_b">تقييم B — جيد</string>
+    <string name="speedtest_grade_c">تقييم C — مقبول</string>
+    <string name="speedtest_grade_d">تقييم D — ضعيف</string>
+    <string name="speedtest_grade_f">تقييم F — فاشل</string>
+    <string name="speedtest_cause_wifi">السبب: إشارة Wi-Fi داخلية ضعيفة</string>
+    <string name="speedtest_cause_isp">السبب: ازدحام شبكة مزود الخدمة / 4G</string>
+    <string name="speedtest_cause_ok">Wi-Fi والإنترنت يعملان بشكل جيد</string>
+    <string name="game_ping_title">زمن استجابة خادم الألعاب</string>
+    <string name="game_ping_good">جيد (%d مللي ثانية)</string>
+    <string name="game_ping_fair">مقبول (%d مللي ثانية)</string>
+    <string name="game_ping_poor">ضعيف (%d مللي ثانية)</string>
+
+    <!-- Quota Guard -->
+    <string name="quota_title">حارس الباقة الشهرية</string>
+    <string name="quota_bundle_size">حجم الباقة (جيجابايت)</string>
+    <string name="quota_renewal_day">يوم التجديد</string>
+    <string name="quota_used">المستخدم</string>
+    <string name="quota_remaining">المتبقي</string>
+    <string name="quota_daily_allowance">الحصة اليومية: %.1f جيجابايت</string>
+    <string name="quota_days_left">%d يوم حتى التجديد</string>
+    <string name="quota_alert_50">تنبيه عند 50%%</string>
+    <string name="quota_alert_80">تنبيه عند 80%%</string>
+    <string name="quota_alert_95">تنبيه عند 95%%</string>
+    <string name="quota_estimate">التقدير المتوقع للاستنفاد: %s</string>
+
+    <!-- Security Audit -->
+    <string name="security_title">تدقيق الأمان</string>
+    <string name="security_scan">بدء فحص الأمان</string>
+    <string name="security_score">نقاط الأمان: %d/100</string>
+    <string name="security_check_wps">حالة WPS</string>
+    <string name="security_check_encryption">قوة التشفير</string>
+    <string name="security_check_password">كلمة مرور المدير</string>
+    <string name="security_check_wan">منفذ الإدارة عبر WAN</string>
+    <string name="security_check_upnp">تعرض UPnP</string>
+    <string name="security_check_dns">اختطاف DNS</string>
+    <string name="security_fix">إصلاح هذه المشكلة</string>
+    <string name="security_passed">اجتاز ✓</string>
+    <string name="security_failed">فشل ✗</string>
+
+    <!-- Troubleshooter -->
+    <string name="troubleshooter_title">لماذا الإنترنت فاصل أو بطيء؟</string>
+    <string name="troubleshooter_start">تشغيل التشخيص</string>
+    <string name="troubleshooter_step_wifi">راديو Wi-Fi</string>
+    <string name="troubleshooter_step_dhcp">عنوان DHCP</string>
+    <string name="troubleshooter_step_gateway">اختبار البوابة</string>
+    <string name="troubleshooter_step_4g">تسجيل 4G</string>
+    <string name="troubleshooter_step_dns">حل DNS</string>
+    <string name="troubleshooter_step_https">إمكانية الوصول للإنترنت</string>
+    <string name="troubleshooter_pass">✅ اجتاز</string>
+    <string name="troubleshooter_fail">❌ فشل</string>
+    <string name="troubleshooter_running">⏳ جارٍ الفحص…</string>
+    <string name="troubleshooter_fix">تطبيق الإصلاح</string>
+
+    <!-- Network Tools -->
+    <string name="tools_title">أدوات الشبكة المتقدمة</string>
+    <string name="tools_ping">اختبار Ping</string>
+    <string name="tools_traceroute">تتبع المسار</string>
+    <string name="tools_port_scan">فاحص المنافذ</string>
+    <string name="tools_dns_lookup">استعلام DNS</string>
+    <string name="tools_subnet_calc">حاسبة الشبكة الفرعية</string>
+    <string name="tools_upnp">مدير UPnP</string>
+    <string name="tools_camera_finder">باحث كاميرات IP</string>
+    <string name="tools_host">المضيف / عنوان IP</string>
+    <string name="tools_start">بدء</string>
+    <string name="tools_stop">إيقاف</string>
+    <string name="tools_clear">مسح</string>
+
+    <!-- QR Code &amp; OCR -->
+    <string name="qr_title">رمز QR لـ Wi-Fi</string>
+    <string name="qr_main_network">الشبكة الرئيسية</string>
+    <string name="qr_guest_network">شبكة الضيوف</string>
+    <string name="qr_share">مشاركة رمز QR</string>
+    <string name="qr_nfc_write">كتابة على وسم NFC</string>
+    <string name="qr_nfc_tap">اضغط على وسم NFC الآن…</string>
+    <string name="ocr_title">مسح ملصق الراوتر</string>
+    <string name="ocr_instruction">وجّه الكاميرا نحو ملصق الراوتر لاستخراج بيانات الاعتماد تلقائياً</string>
+    <string name="ocr_detected_ip">عنوان IP المكتشف: %s</string>
+    <string name="ocr_detected_ssid">اسم الشبكة المكتشف: %s</string>
+    <string name="ocr_detected_key">مفتاح Wi-Fi المكتشف: %s</string>
+    <string name="ocr_detected_admin">كلمة مرور المدير المكتشفة: %s</string>
+    <string name="ocr_apply">تطبيق بيانات الاعتماد المكتشفة</string>
+
+    <!-- Report -->
+    <string name="report_title">تقرير التشخيص</string>
+    <string name="report_generate">إنشاء التقرير</string>
+    <string name="report_share">مشاركة PDF</string>
+    <string name="report_preview">معاينة التقرير</string>
+
+    <!-- Settings -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_language">اللغة</string>
+    <string name="settings_language_ar">العربية</string>
+    <string name="settings_language_en">English</string>
+    <string name="settings_theme">المظهر</string>
+    <string name="settings_theme_system">النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="settings_theme_neon">نيون سايبر</string>
+    <string name="settings_biometric">قفل بصمة الإصبع / PIN</string>
+    <string name="settings_router_credentials">الراوترات المحفوظة</string>
+    <string name="settings_notifications">الإشعارات</string>
+    <string name="settings_intruder_notif">تنبيهات المتسللين</string>
+    <string name="settings_quota_notif">تنبيهات باقة البيانات</string>
+    <string name="settings_scan_interval">فترة المسح في الخلفية</string>
+    <string name="settings_scan_15m">كل 15 دقيقة</string>
+    <string name="settings_scan_30m">كل 30 دقيقة</string>
+    <string name="settings_scan_1h">كل ساعة</string>
+    <string name="settings_scan_off">إيقاف</string>
+    <string name="settings_export">تصدير البيانات</string>
+    <string name="settings_about">حول التطبيق</string>
+    <string name="settings_reset">إعادة تعيين التطبيق</string>
+    <string name="settings_reset_confirm">إعادة تعيين جميع بيانات التطبيق؟ لا يمكن التراجع عن هذا.</string>
+    <string name="settings_version">الإصدار %s</string>
+
+    <!-- Router Setup -->
+    <string name="setup_title">الاتصال بالراوتر</string>
+    <string name="setup_auto_detect">الكشف التلقائي عن الراوتر</string>
+    <string name="setup_manual">الإعداد اليدوي</string>
+    <string name="setup_ip">عنوان IP للراوتر</string>
+    <string name="setup_port">المنفذ (الافتراضي 80)</string>
+    <string name="setup_username">اسم المستخدم</string>
+    <string name="setup_password">كلمة المرور</string>
+    <string name="setup_test">اختبار الاتصال</string>
+    <string name="setup_save">حفظ والاتصال</string>
+    <string name="setup_detected">تم الكشف عن الراوتر: %s</string>
+    <string name="setup_connected">تم الاتصال بنجاح!</string>
+    <string name="setup_failed">فشل الاتصال. تحقق من عنوان IP وبيانات الاعتماد.</string>
+    <string name="setup_biometric_prompt">تفعيل قفل البصمة لحماية بيانات اعتماد الراوتر</string>
+
+    <!-- DSL Analyzer -->
+    <string name="dsl_title">محلل خط DSL/VDSL</string>
+    <string name="dsl_snr">هامش نسبة الإشارة إلى الضوضاء</string>
+    <string name="dsl_attenuation">تخميد الخط</string>
+    <string name="dsl_attainable_rate">السرعة القصوى الممكنة</string>
+    <string name="dsl_crc_errors">أخطاء CRC</string>
+    <string name="dsl_line_stable">الخط مستقر — جودة ممتازة ✅</string>
+    <string name="dsl_line_marginal">هامش SNR منخفض — قد يقطع الخط أثناء المطر</string>
+    <string name="dsl_high_crc">أخطاء CRC مرتفعة — تحقق من كبل خط الهاتف</string>
+
+    <!-- General -->
+    <string name="ok">موافق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save">حفظ</string>
+    <string name="delete">حذف</string>
+    <string name="confirm">تأكيد</string>
+    <string name="loading">جارٍ التحميل…</string>
+    <string name="error_generic">حدث خطأ ما. يرجى المحاولة مرة أخرى.</string>
+    <string name="error_no_router">الراوتر غير متصل. انتقل إلى الإعدادات للتهيئة.</string>
+    <string name="error_not_supported">هذه الميزة غير مدعومة من راوترك.</string>
+    <string name="error_auth">فشل المصادقة. تحقق من اسم المستخدم وكلمة المرور.</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="refresh">تحديث</string>
+    <string name="apply">تطبيق</string>
+    <string name="enabled">مفعّل</string>
+    <string name="disabled">معطّل</string>
+    <string name="on">تشغيل</string>
+    <string name="off">إيقاف</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="back">رجوع</string>
+    <string name="close">إغلاق</string>
+    <string name="share">مشاركة</string>
+    <string name="export">تصدير</string>
+    <string name="copy">نسخ</string>
+    <string name="copied">تم النسخ إلى الحافظة</string>
+    <string name="permission_location_rationale">إذن الموقع مطلوب لفحص شبكات Wi-Fi على Android 9 وما فوق.</string>
+    <string name="permission_camera_rationale">إذن الكاميرا مطلوب لمسح ملصق الراوتر واستخراج بيانات الاعتماد.</string>
+    <string name="permission_notification_rationale">إذن الإشعارات مطلوب لتنبيهك بشأن المتسللين وتحذيرات الباقة.</string>
+    <string name="biometric_title">المصادقة</string>
+    <string name="biometric_subtitle">تحقق من هويتك للوصول إلى إعدادات الراوتر</string>
+    <string name="notification_monitoring">مراقبة الشبكة نشطة</string>
+    <string name="notification_monitoring_desc">نت ماستر برو يراقب شبكتك بحثاً عن المتسللين</string>
+    <string name="notification_intruder_title">⚠️ تحذير: جهاز غريب!</string>
+    <string name="notification_intruder_desc">جهاز غير معروف متصل: %s (%s)</string>
+    <string name="notification_quota_title">تحذير الباقة: %d%% مستخدمة</string>
+    <string name="notification_quota_desc">%.1f جيجابايت متبقية من باقتك الشهرية</string>
+
+    <!-- APN Manager -->
+    <string name="apn_title">ملفات APN</string>
+    <string name="apn_add">إضافة APN</string>
+    <string name="apn_name">اسم الملف</string>
+    <string name="apn_address">عنوان APN</string>
+    <string name="apn_username">اسم المستخدم (اختياري)</string>
+    <string name="apn_password">كلمة المرور (اختيارية)</string>
+    <string name="apn_apply">تطبيق APN</string>
+
+    <!-- Notification channel names -->
+    <string name="channel_intruder_name">تنبيهات المتسللين</string>
+    <string name="channel_intruder_desc">تنبيهات عند اتصال أجهزة غير معروفة بشبكتك</string>
+    <string name="channel_quota_name">تنبيهات باقة البيانات</string>
+    <string name="channel_quota_desc">تنبيهات عند وصول باقتك لعتبات الاستخدام</string>
+    <string name="channel_monitoring_name">مراقبة الشبكة</string>
+    <string name="channel_monitoring_desc">إشعار دائم أثناء تشغيل مراقبة الشبكة</string>
+</resources>

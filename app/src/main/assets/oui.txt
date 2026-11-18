@@ -1,0 +1,848 @@
+00:00:00	Xerox Corporation
+00:00:01	Xerox Corporation
+00:00:02	Xerox Corporation
+00:00:03	Xerox Corporation
+00:00:04	Xerox Corporation
+00:00:0C	Cisco Systems
+00:00:0E	Fujitsu Limited
+00:00:10	Hughes Network Systems
+00:00:14	Netronix
+00:00:1A	Advanced Micro Devices
+00:00:1B	Novell Inc
+00:00:20	DIAB
+00:00:22	Visual Technology
+00:00:2A	TRW Inc
+00:00:2C	IPL Systems
+00:00:3C	Auspex Systems
+00:00:4C	NEC Corporation
+00:00:50	Radisys Corporation
+00:00:5A	SK Hynix
+00:00:65	Network General Corporation
+00:00:6B	Silicon Graphics
+00:00:72	Miniframe Ltd
+00:00:77	Interphase Corporation
+00:00:7A	Ardent Computer
+00:00:81	Bay Networks
+00:00:89	Cayman Systems
+00:00:93	Apple Inc
+00:00:A2	Wellfleet Communications
+00:00:A6	Network General Corporation
+00:00:AA	Xerox Corporation
+00:00:B0	RND Networks
+00:00:BB	3Com Corporation
+00:00:C0	Western Digital Corporation
+00:00:C5	Farallon Communications
+00:00:CC	Silcom Ltd
+00:00:D0	Develcon Electronics
+00:00:D7	Dartmouth College
+00:00:E2	Acer Technologies
+00:00:E6	Apricot Computers
+00:00:F3	Gandalf Systems Corporation
+00:00:F8	Digital Equipment Corporation
+00:04:5A	3Com Corporation
+00:04:76	Nokia Mobile Phones
+00:04:AC	IBM Corporation
+00:04:E2	Ericsson Mobile Platforms
+00:08:02	3Com Corporation
+00:08:74	Dell Technologies
+00:0C:29	VMware Inc
+00:0D:3A	Microsoft Corporation
+00:0E:35	Intel Corporate
+00:0F:B5	Netgear Inc
+00:11:92	D-Link Corporation
+00:13:46	Intel Corporate
+00:14:22	Dell Technologies
+00:16:CB	Apple Inc
+00:17:88	Philips Lighting BV
+00:18:0A	LG Electronics
+00:18:DE	Apple Inc
+00:19:E3	Apple Inc
+00:1B:63	Apple Inc
+00:1C:B3	Apple Inc
+00:1D:7E	Cisco-Linksys LLC
+00:1E:52	Apple Inc
+00:1F:5B	Apple Inc
+00:21:5D	Apple Inc
+00:22:41	Apple Inc
+00:23:12	Apple Inc
+00:23:32	Apple Inc
+00:23:DF	Apple Inc
+00:24:36	Apple Inc
+00:25:00	Apple Inc
+00:25:4B	Apple Inc
+00:26:08	Apple Inc
+00:26:B9	Dell Technologies
+00:40:96	Kentrox
+00:50:56	VMware Inc
+00:50:BA	D-Link Corporation
+00:60:08	3Com Corporation
+00:60:2F	Cisco Systems
+00:60:47	Cisco Systems
+00:60:70	Cisco Systems
+00:60:97	3Com Corporation
+00:70:FD	Cisco Systems
+00:80:5F	Compaq Computer Corporation
+00:90:27	Intel Corporate
+00:90:4B	Gemtek Technology
+00:A0:40	Apple Inc
+00:B0:D0	Dell Technologies
+00:C0:CA	Foxconn International
+00:E0:4C	Realtek Semiconductor Corp
+14:49:E0	Samsung Electronics
+18:67:B0	Apple Inc
+1C:36:BB	Apple Inc
+20:AB:37	Apple Inc
+28:CF:DA	Apple Inc
+2C:AB:00	Samsung Electronics
+30:65:EC	Apple Inc
+34:36:3B	Huawei Technologies
+38:BC:1A	Apple Inc
+3C:5A:B4	Google Inc
+40:4D:7F	Apple Inc
+40:9C:28	Intel Corporate
+44:65:0D	Apple Inc
+44:91:60	Huawei Technologies
+48:5D:60	Huawei Technologies
+4C:32:75	Apple Inc
+4C:74:03	TP-Link Technologies
+50:32:37	Apple Inc
+50:82:D5	Apple Inc
+54:4E:90	Cisco Systems
+54:72:4F	Apple Inc
+54:9F:35	Apple Inc
+58:1F:AA	Apple Inc
+5C:97:F3	Apple Inc
+60:03:08	Apple Inc
+60:33:4B	Apple Inc
+64:16:66	Apple Inc
+64:5A:04	Apple Inc
+68:5B:35	Apple Inc
+6C:40:08	Apple Inc
+6C:94:F8	Apple Inc
+70:3A:CB	Apple Inc
+70:CD:60	Apple Inc
+74:E2:F5	Apple Inc
+74:F0:6D	Apple Inc
+78:4F:43	Apple Inc
+78:88:6D	Apple Inc
+7C:11:BE	Apple Inc
+80:00:6E	Huawei Technologies
+80:49:71	Apple Inc
+84:38:38	Apple Inc
+84:85:06	Apple Inc
+84:A1:34	TP-Link Technologies
+88:19:08	Apple Inc
+88:63:DF	Apple Inc
+88:C6:63	Apple Inc
+8C:00:6D	Apple Inc
+8C:7C:92	Apple Inc
+90:60:F1	Apple Inc
+90:84:0D	Apple Inc
+90:9C:4A	Apple Inc
+94:65:9C	Apple Inc
+94:BF:2D	Apple Inc
+98:01:A7	Apple Inc
+98:FE:94	Apple Inc
+9C:35:EB	Apple Inc
+A0:11:9B	TP-Link Technologies
+A0:91:69	Apple Inc
+A0:D3:C1	Apple Inc
+A4:5E:60	Apple Inc
+A8:20:66	Apple Inc
+A8:66:7F	Apple Inc
+AC:37:43	Apple Inc
+AC:BC:32	Apple Inc
+B0:34:95	Apple Inc
+B0:BE:76	Cisco Systems
+B4:18:D1	Apple Inc
+B8:09:8A	Apple Inc
+B8:27:EB	Raspberry Pi Foundation
+BC:6C:21	Apple Inc
+BC:92:6B	Apple Inc
+C0:84:7A	Apple Inc
+C0:9F:42	Apple Inc
+C4:2C:03	Apple Inc
+C8:2A:14	Apple Inc
+C8:69:CD	Apple Inc
+CC:08:FB	Apple Inc
+CC:3A:61	Samsung Electronics
+D0:03:DF	Apple Inc
+D0:23:DB	Apple Inc
+D4:61:9D	Apple Inc
+D4:90:9C	Apple Inc
+D8:1D:72	Apple Inc
+D8:30:62	Apple Inc
+DC:2B:2A	Apple Inc
+DC:86:D8	Apple Inc
+E0:33:8E	Apple Inc
+E0:AC:CB	Apple Inc
+E4:25:E7	Apple Inc
+E8:04:62	Apple Inc
+E8:8D:28	Apple Inc
+EC:35:86	Apple Inc
+F0:18:98	Apple Inc
+F0:98:9D	Apple Inc
+F4:5C:89	Apple Inc
+F4:5D:3B	Apple Inc
+F4:F5:D8	Apple Inc
+F8:1E:DF	Apple Inc
+FC:25:3F	Apple Inc
+FC:E9:98	Apple Inc
+00:1A:11	Google Inc
+3C:5A:B4	Google Inc
+54:60:09	Google Inc
+F4:F5:D8	Google Inc
+70:3A:CB	Google Inc
+48:D6:D5	Huawei Technologies Co
+54:89:98	Huawei Technologies Co
+70:72:3C	Huawei Technologies Co
+78:1D:BA	Huawei Technologies Co
+90:17:3F	Huawei Technologies Co
+AC:4E:91	Huawei Technologies Co
+B4:CD:27	Huawei Technologies Co
+C4:07:2F	Huawei Technologies Co
+D4:6E:5C	Huawei Technologies Co
+F8:4E:73	Huawei Technologies Co
+00:12:FB	Samsung Electronics
+00:16:32	Samsung Electronics
+00:1C:43	Samsung Electronics
+00:21:4C	Samsung Electronics
+00:26:5F	Samsung Electronics
+08:08:C2	Samsung Electronics
+20:13:E0	Samsung Electronics
+30:19:66	Samsung Electronics
+3C:62:00	Samsung Electronics
+44:4E:1A	Samsung Electronics
+50:01:BB	Samsung Electronics
+54:92:BE	Samsung Electronics
+5C:0A:5B	Samsung Electronics
+64:B3:10	Samsung Electronics
+70:F9:27	Samsung Electronics
+78:40:E4	Samsung Electronics
+8C:71:F8	Samsung Electronics
+94:63:D1	Samsung Electronics
+A0:0B:BA	Samsung Electronics
+B4:3A:28	Samsung Electronics
+C0:97:27	Samsung Electronics
+D0:17:6A	Samsung Electronics
+D4:88:90	Samsung Electronics
+E8:50:8B	Samsung Electronics
+F4:7B:5E	Samsung Electronics
+00:0F:00	Xiaomi Corporation
+04:CF:8C	Xiaomi Corporation
+08:7A:4C	Xiaomi Corporation
+10:2A:B3	Xiaomi Corporation
+14:F6:5A	Xiaomi Corporation
+18:59:36	Xiaomi Corporation
+1C:77:F6	Xiaomi Corporation
+20:82:C0	Xiaomi Corporation
+28:6C:07	Xiaomi Corporation
+34:80:B3	Xiaomi Corporation
+38:A4:ED	Xiaomi Corporation
+3C:BD:3E	Xiaomi Corporation
+4C:49:E3	Xiaomi Corporation
+50:64:2B	Xiaomi Corporation
+58:44:98	Xiaomi Corporation
+5C:E5:0C	Xiaomi Corporation
+64:09:80	Xiaomi Corporation
+68:DF:DD	Xiaomi Corporation
+74:23:44	Xiaomi Corporation
+7C:1D:D9	Xiaomi Corporation
+8C:BE:BE	Xiaomi Corporation
+9C:99:A0	Xiaomi Corporation
+A4:50:46	Xiaomi Corporation
+AC:C1:EE	Xiaomi Corporation
+B0:E2:35	Xiaomi Corporation
+C4:0B:CB	Xiaomi Corporation
+D4:97:0B	Xiaomi Corporation
+F8:A4:5F	Xiaomi Corporation
+00:04:4B	Nvidia Corporation
+00:0D:60	TP-Link Technologies
+00:17:16	TP-Link Technologies
+00:1D:0F	TP-Link Technologies
+00:23:CD	TP-Link Technologies
+00:27:19	TP-Link Technologies
+14:CC:20	TP-Link Technologies
+18:A6:F7	TP-Link Technologies
+1C:3B:F3	TP-Link Technologies
+24:69:68	TP-Link Technologies
+2C:4D:54	TP-Link Technologies
+30:B5:C2	TP-Link Technologies
+34:CE:00	TP-Link Technologies
+38:3B:26	TP-Link Technologies
+40:16:9F	TP-Link Technologies
+44:94:FC	TP-Link Technologies
+50:3E:AA	TP-Link Technologies
+54:AF:97	TP-Link Technologies
+5C:89:9A	TP-Link Technologies
+64:70:02	TP-Link Technologies
+6C:19:8F	TP-Link Technologies
+74:DA:38	TP-Link Technologies
+7C:8B:CA	TP-Link Technologies
+84:16:F9	TP-Link Technologies
+90:F6:52	TP-Link Technologies
+98:DA:C4	TP-Link Technologies
+A0:F3:C1	TP-Link Technologies
+B0:48:7A	TP-Link Technologies
+C0:A0:BB	TP-Link Technologies
+EC:08:6B	TP-Link Technologies
+F4:EC:38	TP-Link Technologies
+00:0F:B5	Netgear Inc
+00:14:6C	Netgear Inc
+00:18:4D	Netgear Inc
+00:1B:2F	Netgear Inc
+00:1E:2A	Netgear Inc
+00:22:3F	Netgear Inc
+00:24:B2	Netgear Inc
+00:26:F2	Netgear Inc
+08:36:C9	Netgear Inc
+1C:1B:0D	Netgear Inc
+20:4E:7F	Netgear Inc
+2C:30:33	Netgear Inc
+30:46:9A	Netgear Inc
+44:94:FC	Netgear Inc
+6C:B0:CE	Netgear Inc
+80:37:73	Netgear Inc
+9C:3D:CF	Netgear Inc
+A0:40:A0	Netgear Inc
+B0:39:56	Netgear Inc
+C0:3F:0E	Netgear Inc
+E0:46:9A	Netgear Inc
+00:0E:8E	D-Link Corporation
+00:11:95	D-Link Corporation
+00:15:E9	D-Link Corporation
+00:17:9A	D-Link Corporation
+00:19:5B	D-Link Corporation
+00:1B:11	D-Link Corporation
+00:1C:F0	D-Link Corporation
+00:1E:58	D-Link Corporation
+00:21:91	D-Link Corporation
+00:22:B0	D-Link Corporation
+00:24:01	D-Link Corporation
+00:26:5A	D-Link Corporation
+1C:7E:E5	D-Link Corporation
+28:10:7B	D-Link Corporation
+34:08:04	D-Link Corporation
+4C:00:82	D-Link Corporation
+58:98:35	D-Link Corporation
+6C:19:8F	D-Link Corporation
+78:54:2E	D-Link Corporation
+90:94:E4	D-Link Corporation
+BC:F6:85	D-Link Corporation
+C8:BE:19	D-Link Corporation
+F0:7D:68	D-Link Corporation
+00:11:D9	TiVo
+00:13:10	Linksys LLC
+00:15:6D	Ubiquiti Networks
+00:17:88	Philips Hue / Signify
+00:18:0A	LG Electronics
+00:19:92	Amimon Ltd
+00:1E:BE	Sony Corporation
+00:1F:3A	Sony Corporation
+00:21:D7	Sony Corporation
+00:23:F1	Sony Corporation
+00:24:BE	Sony Corporation
+00:26:CC	Sony Corporation
+18:00:2D	Sony Corporation
+20:17:AB	Sony Corporation
+28:3F:69	Sony Corporation
+30:17:C8	Sony Corporation
+34:C7:31	Sony Corporation
+3C:01:EF	Sony Corporation
+40:B0:FA	Sony Corporation
+54:42:49	Sony Corporation
+64:5B:7C	Sony Corporation
+70:2A:D5	Sony Corporation
+78:84:3C	Sony Corporation
+7C:1E:52	Sony Corporation
+84:C7:EA	Sony Corporation
+90:60:F1	Sony Corporation
+9C:5C:F9	Sony Corporation
+A0:E4:53	Sony Corporation
+AC:9B:0A	Sony Corporation
+B4:52:7E	Sony Corporation
+C0:BD:D1	Sony Corporation
+CC:FD:45	Sony Corporation
+D0:17:C2	Sony Corporation
+F0:BF:97	Sony Corporation
+00:1A:9C	LG Electronics
+00:24:C6	LG Electronics
+00:26:E2	LG Electronics
+3C:CD:93	LG Electronics
+48:59:29	LG Electronics
+58:9E:C6	LG Electronics
+5C:F9:38	LG Electronics
+64:89:9A	LG Electronics
+7C:1C:68	LG Electronics
+9C:88:AD	LG Electronics
+A8:16:B2	LG Electronics
+B4:E6:2D	LG Electronics
+C4:9A:02	LG Electronics
+D8:EB:97	LG Electronics
+E8:92:A4	LG Electronics
+F8:0C:F3	LG Electronics
+00:00:1A	Cisco Systems
+00:00:0C	Cisco Systems
+00:01:42	Cisco Systems
+00:01:63	Cisco Systems
+00:01:64	Cisco Systems
+00:01:96	Cisco Systems
+00:02:16	Cisco Systems
+00:02:17	Cisco Systems
+00:02:3D	Cisco Systems
+00:02:4A	Cisco Systems
+00:02:4B	Cisco Systems
+00:02:7D	Cisco Systems
+00:02:FC	Cisco Systems
+00:03:31	Cisco Systems
+00:03:32	Cisco Systems
+00:03:6B	Cisco Systems
+00:03:9F	Cisco Systems
+00:03:A0	Cisco Systems
+00:03:E3	Cisco Systems
+00:03:FD	Cisco Systems
+00:04:4D	Cisco Systems
+00:04:6D	Cisco Systems
+00:04:9A	Cisco Systems
+00:04:C0	Cisco Systems
+00:04:DD	Cisco Systems
+00:05:00	Cisco Systems
+00:05:31	Cisco Systems
+00:05:32	Cisco Systems
+00:05:5E	Cisco Systems
+00:05:73	Cisco Systems
+00:05:74	Cisco Systems
+00:06:28	Cisco Systems
+00:06:52	Cisco Systems
+00:06:53	Cisco Systems
+00:06:7C	Cisco Systems
+00:06:C1	Cisco Systems
+00:06:D6	Cisco Systems
+00:06:F6	Cisco Systems
+00:07:0D	Cisco Systems
+00:07:0E	Cisco Systems
+00:07:4F	Cisco Systems
+00:07:50	Cisco Systems
+00:07:7D	Cisco Systems
+00:07:84	Cisco Systems
+00:07:85	Cisco Systems
+00:07:B3	Cisco Systems
+00:08:20	Cisco Systems
+00:08:21	Cisco Systems
+00:08:30	Cisco Systems
+00:08:31	Cisco Systems
+00:08:32	Cisco Systems
+00:08:7C	Cisco Systems
+00:08:A3	Cisco Systems
+00:0B:46	Dell Technologies
+00:0D:56	Dell Technologies
+00:0F:1F	Dell Technologies
+00:11:43	Dell Technologies
+00:12:3F	Dell Technologies
+00:13:72	Dell Technologies
+00:14:22	Dell Technologies
+00:15:C5	Dell Technologies
+00:16:F0	Dell Technologies
+00:18:8B	Dell Technologies
+00:19:B9	Dell Technologies
+00:1A:4B	Dell Technologies
+00:1C:23	Dell Technologies
+00:1D:09	Dell Technologies
+00:1E:4F	Dell Technologies
+00:1F:D0	Dell Technologies
+00:21:70	Dell Technologies
+00:22:19	Dell Technologies
+00:23:AE	Dell Technologies
+00:24:E8	Dell Technologies
+00:25:64	Dell Technologies
+00:26:B9	Dell Technologies
+18:03:73	Dell Technologies
+18:A9:9B	Dell Technologies
+18:DB:F2	Dell Technologies
+1C:40:24	Dell Technologies
+24:B6:FD	Dell Technologies
+28:F1:0E	Dell Technologies
+34:17:EB	Dell Technologies
+44:A8:42	Dell Technologies
+4C:76:25	Dell Technologies
+54:9F:35	Dell Technologies
+5C:26:0A	Dell Technologies
+60:36:DD	Dell Technologies
+6C:AE:8B	Dell Technologies
+74:86:7A	Dell Technologies
+78:2B:CB	Dell Technologies
+7C:D1:C3	Dell Technologies
+84:7B:EB	Dell Technologies
+8C:EC:4B	Dell Technologies
+90:B1:1C	Dell Technologies
+98:90:96	Dell Technologies
+A4:1F:72	Dell Technologies
+A8:9F:EC	Dell Technologies
+B0:83:FE	Dell Technologies
+B8:CA:3A	Dell Technologies
+BC:30:5B	Dell Technologies
+C8:1F:66	Dell Technologies
+D4:AE:52	Dell Technologies
+D8:9E:F3	Dell Technologies
+E4:54:E8	Dell Technologies
+F8:DB:88	Dell Technologies
+00:08:74	HP Inc
+00:0E:7F	HP Inc
+00:11:0A	HP Inc
+00:12:79	HP Inc
+00:13:21	HP Inc
+00:14:38	HP Inc
+00:15:60	HP Inc
+00:16:35	HP Inc
+00:17:08	HP Inc
+00:18:71	HP Inc
+00:19:BB	HP Inc
+00:1A:4B	HP Inc
+00:1B:78	HP Inc
+00:1C:C4	HP Inc
+00:1D:98	HP Inc
+00:1E:0B	HP Inc
+00:1F:29	HP Inc
+00:21:5A	HP Inc
+00:22:64	HP Inc
+00:23:7D	HP Inc
+00:24:81	HP Inc
+00:25:B3	HP Inc
+00:26:55	HP Inc
+18:A9:05	HP Inc
+1C:C1:DE	HP Inc
+20:47:DA	HP Inc
+24:BE:05	HP Inc
+28:92:4A	HP Inc
+2C:27:D7	HP Inc
+30:8D:99	HP Inc
+34:64:A9	HP Inc
+38:EA:A7	HP Inc
+3C:4A:92	HP Inc
+40:B0:34	HP Inc
+44:1E:A1	HP Inc
+48:0F:CF	HP Inc
+4C:0F:6E	HP Inc
+50:65:F3	HP Inc
+54:EE:75	HP Inc
+58:20:B1	HP Inc
+5C:B9:01	HP Inc
+60:EB:69	HP Inc
+64:51:06	HP Inc
+68:B5:99	HP Inc
+6C:3B:E5	HP Inc
+70:5A:0F	HP Inc
+74:46:A0	HP Inc
+78:48:59	HP Inc
+7C:2E:BD	HP Inc
+80:CE:62	HP Inc
+84:34:97	HP Inc
+88:51:FB	HP Inc
+8C:DC:D4	HP Inc
+90:1B:0E	HP Inc
+94:57:A5	HP Inc
+98:4B:E1	HP Inc
+9C:8E:99	HP Inc
+A0:D3:C1	HP Inc
+A4:5D:36	HP Inc
+A8:97:DC	HP Inc
+AC:16:2D	HP Inc
+B0:5A:DA	HP Inc
+B4:99:BA	HP Inc
+B8:AF:67	HP Inc
+BC:EA:FA	HP Inc
+C0:9A:D0	HP Inc
+C4:34:6B	HP Inc
+C8:51:95	HP Inc
+CC:3D:82	HP Inc
+D0:BF:9C	HP Inc
+D4:85:64	HP Inc
+D8:D3:85	HP Inc
+DC:4A:3E	HP Inc
+E0:07:1B	HP Inc
+E4:11:5B	HP Inc
+E8:39:35	HP Inc
+EC:B1:D7	HP Inc
+F0:92:1C	HP Inc
+F4:CE:46	HP Inc
+F8:B1:56	HP Inc
+FC:15:B4	HP Inc
+00:04:0E	Asus
+00:08:A1	Asus
+00:0C:6E	Asus
+00:0E:A6	Asus
+00:11:2F	Asus
+00:13:D4	Asus
+00:15:F2	Asus
+00:17:31	Asus
+00:18:F3	Asus
+00:1A:92	Asus
+00:1B:FC	Asus
+00:1D:60	Asus
+00:1E:8C	Asus
+00:1F:C6	Asus
+00:22:15	Asus
+00:23:54	Asus
+00:24:8C	Asus
+00:26:18	Asus
+10:BF:48	Asus
+14:DA:E9	Asus
+18:31:BF	Asus
+1C:87:2C	Asus
+20:CF:30	Asus
+24:4B:FE	Asus
+28:28:5D	Asus
+2C:FD:A1	Asus
+30:5A:3A	Asus
+34:97:F6	Asus
+38:D5:47	Asus
+3C:97:0E	Asus
+40:16:7E	Asus
+44:8A:5B	Asus
+48:5B:39	Asus
+4C:ED:FB	Asus
+50:46:5D	Asus
+54:04:A6	Asus
+58:11:22	Asus
+5C:FF:35	Asus
+60:45:CB	Asus
+64:D9:89	Asus
+68:1A:B2	Asus
+6C:62:6D	Asus
+70:4D:7B	Asus
+74:D0:2B	Asus
+78:24:AF	Asus
+7C:7A:91	Asus
+80:1F:02	Asus
+84:A9:3E	Asus
+88:D7:F6	Asus
+8C:8D:28	Asus
+90:48:9A	Asus
+94:DE:80	Asus
+98:5F:D3	Asus
+9C:5C:8E	Asus
+A0:36:9F	Asus
+A4:C3:F0	Asus
+A8:5E:45	Asus
+AC:9E:17	Asus
+B0:6E:BF	Asus
+B4:2E:99	Asus
+B8:AE:ED	Asus
+BC:AE:C5	Asus
+C0:4A:00	Asus
+C4:E9:84	Asus
+C8:60:00	Asus
+CC:28:AA	Asus
+D0:50:99	Asus
+D4:5D:DF	Asus
+D8:50:E6	Asus
+DC:85:DE	Asus
+E0:3F:49	Asus
+E4:70:B8	Asus
+E8:9A:8F	Asus
+EC:08:6B	Asus
+F0:2F:74	Asus
+F4:6D:04	Asus
+F8:32:E4	Asus
+FC:34:97	Asus
+00:00:5E	ICAD
+00:05:5D	Intel Corporate
+00:0E:0C	Intel Corporate
+00:0E:35	Intel Corporate
+00:11:11	Intel Corporate
+00:12:F0	Intel Corporate
+00:13:02	Intel Corporate
+00:13:CE	Intel Corporate
+00:13:E8	Intel Corporate
+00:14:9C	Intel Corporate
+00:15:00	Intel Corporate
+00:16:6F	Intel Corporate
+00:16:EA	Intel Corporate
+00:16:EB	Intel Corporate
+00:17:08	Intel Corporate
+00:18:DE	Intel Corporate
+00:19:D1	Intel Corporate
+00:19:D2	Intel Corporate
+00:1B:21	Intel Corporate
+00:1C:BF	Intel Corporate
+00:1D:E0	Intel Corporate
+00:1D:E1	Intel Corporate
+00:1E:64	Intel Corporate
+00:1E:65	Intel Corporate
+00:1F:3B	Intel Corporate
+00:21:6A	Intel Corporate
+00:21:6B	Intel Corporate
+00:22:FA	Intel Corporate
+00:22:FB	Intel Corporate
+00:23:14	Intel Corporate
+00:24:D6	Intel Corporate
+00:24:D7	Intel Corporate
+00:26:C6	Intel Corporate
+00:26:C7	Intel Corporate
+20:16:D8	Intel Corporate
+24:77:03	Intel Corporate
+28:D2:44	Intel Corporate
+2C:D0:5A	Intel Corporate
+30:3A:64	Intel Corporate
+34:02:86	Intel Corporate
+38:59:F9	Intel Corporate
+3C:97:0E	Intel Corporate
+40:25:C2	Intel Corporate
+44:03:A7	Intel Corporate
+48:45:20	Intel Corporate
+4C:34:88	Intel Corporate
+50:7B:9D	Intel Corporate
+54:35:30	Intel Corporate
+58:91:CF	Intel Corporate
+5C:51:4F	Intel Corporate
+60:67:20	Intel Corporate
+64:00:6A	Intel Corporate
+68:05:CA	Intel Corporate
+6C:88:14	Intel Corporate
+70:1C:E7	Intel Corporate
+74:E5:0B	Intel Corporate
+78:92:9C	Intel Corporate
+7C:7A:91	Intel Corporate
+80:19:34	Intel Corporate
+84:3A:4B	Intel Corporate
+88:53:2E	Intel Corporate
+8C:8D:28	Intel Corporate
+90:2B:34	Intel Corporate
+94:65:9C	Intel Corporate
+98:4F:EE	Intel Corporate
+9C:2A:70	Intel Corporate
+A0:88:B4	Intel Corporate
+A4:34:D9	Intel Corporate
+A8:7E:EA	Intel Corporate
+AC:7B:A1	Intel Corporate
+B0:35:9F	Intel Corporate
+B4:6B:FC	Intel Corporate
+B8:03:05	Intel Corporate
+BC:77:37	Intel Corporate
+C0:3F:D5	Intel Corporate
+C4:85:08	Intel Corporate
+C8:BE:19	Intel Corporate
+CC:3D:82	Intel Corporate
+D0:50:99	Intel Corporate
+D4:81:D7	Intel Corporate
+D8:FC:93	Intel Corporate
+DC:21:48	Intel Corporate
+E0:94:67	Intel Corporate
+E4:70:B8	Intel Corporate
+E8:9A:8F	Intel Corporate
+EC:08:6B	Intel Corporate
+F0:76:1C	Intel Corporate
+F4:06:69	Intel Corporate
+F8:63:3F	Intel Corporate
+FC:F8:AE	Intel Corporate
+00:E0:4C	Realtek Semiconductor Corp
+08:BE:AC	Realtek Semiconductor Corp
+14:A3:64	Realtek Semiconductor Corp
+1C:BD:B9	Realtek Semiconductor Corp
+20:F4:1B	Realtek Semiconductor Corp
+24:0A:64	Realtek Semiconductor Corp
+30:4F:75	Realtek Semiconductor Corp
+3C:2C:30	Realtek Semiconductor Corp
+40:8D:5C	Realtek Semiconductor Corp
+48:FD:8E	Realtek Semiconductor Corp
+4C:1A:3D	Realtek Semiconductor Corp
+50:3E:AA	Realtek Semiconductor Corp
+54:DB:A2	Realtek Semiconductor Corp
+58:A0:23	Realtek Semiconductor Corp
+5C:00:00	Realtek Semiconductor Corp
+60:14:B3	Realtek Semiconductor Corp
+64:66:B3	Realtek Semiconductor Corp
+68:DB:CA	Realtek Semiconductor Corp
+6C:62:6D	Realtek Semiconductor Corp
+70:85:C2	Realtek Semiconductor Corp
+74:DA:38	Realtek Semiconductor Corp
+78:11:DC	Realtek Semiconductor Corp
+7C:1A:EB	Realtek Semiconductor Corp
+80:30:49	Realtek Semiconductor Corp
+84:16:F9	Realtek Semiconductor Corp
+88:36:6C	Realtek Semiconductor Corp
+8C:18:D7	Realtek Semiconductor Corp
+90:2B:34	Realtek Semiconductor Corp
+94:0E:6B	Realtek Semiconductor Corp
+98:C3:66	Realtek Semiconductor Corp
+9C:8E:99	Realtek Semiconductor Corp
+A4:1F:72	Realtek Semiconductor Corp
+A8:97:DC	Realtek Semiconductor Corp
+AC:16:2D	Realtek Semiconductor Corp
+B0:4E:26	Realtek Semiconductor Corp
+B4:52:7E	Realtek Semiconductor Corp
+B8:3A:9A	Realtek Semiconductor Corp
+BC:5F:F4	Realtek Semiconductor Corp
+C0:3F:D5	Realtek Semiconductor Corp
+C4:05:28	Realtek Semiconductor Corp
+C8:60:00	Realtek Semiconductor Corp
+CC:3D:82	Realtek Semiconductor Corp
+D0:AB:D5	Realtek Semiconductor Corp
+D4:85:64	Realtek Semiconductor Corp
+D8:3A:DD	Realtek Semiconductor Corp
+DC:0E:A1	Realtek Semiconductor Corp
+E0:DB:55	Realtek Semiconductor Corp
+E4:60:90	Realtek Semiconductor Corp
+E8:4E:84	Realtek Semiconductor Corp
+EC:1A:59	Realtek Semiconductor Corp
+F0:B4:29	Realtek Semiconductor Corp
+F4:6D:04	Realtek Semiconductor Corp
+F8:16:54	Realtek Semiconductor Corp
+FC:34:97	Realtek Semiconductor Corp
+00:10:18	Broadcom Corporation
+00:11:22	Broadcom Corporation
+00:17:F2	Broadcom Corporation
+00:1A:73	Broadcom Corporation
+00:90:4C	Broadcom Corporation
+08:86:3B	Broadcom Corporation
+14:AB:C5	Broadcom Corporation
+18:B4:30	Broadcom Corporation
+20:0C:C8	Broadcom Corporation
+28:C2:DD	Broadcom Corporation
+30:46:9A	Broadcom Corporation
+34:AD:1C	Broadcom Corporation
+3C:9D:55	Broadcom Corporation
+44:61:32	Broadcom Corporation
+4C:8B:30	Broadcom Corporation
+50:57:A8	Broadcom Corporation
+58:94:6B	Broadcom Corporation
+5C:50:15	Broadcom Corporation
+60:33:4B	Broadcom Corporation
+64:70:33	Broadcom Corporation
+68:EB:C5	Broadcom Corporation
+70:3A:CB	Broadcom Corporation
+74:E2:F5	Broadcom Corporation
+78:4F:43	Broadcom Corporation
+7C:1E:52	Broadcom Corporation
+80:12:34	Broadcom Corporation
+84:72:93	Broadcom Corporation
+88:A9:A7	Broadcom Corporation
+8C:1F:94	Broadcom Corporation
+90:17:3F	Broadcom Corporation
+94:77:2B	Broadcom Corporation
+98:52:B1	Broadcom Corporation
+9C:9C:1F	Broadcom Corporation
+A0:4F:67	Broadcom Corporation
+A4:ED:4E	Broadcom Corporation
+A8:6B:AD	Broadcom Corporation
+AC:22:0B	Broadcom Corporation
+B0:4E:26	Broadcom Corporation
+B4:E6:2D	Broadcom Corporation
+B8:17:C2	Broadcom Corporation
+BC:9F:EF	Broadcom Corporation
+C0:9F:42	Broadcom Corporation
+C4:84:66	Broadcom Corporation
+C8:69:CD	Broadcom Corporation
+CC:08:FB	Broadcom Corporation
+D0:03:DF	Broadcom Corporation
+D4:0B:1A	Broadcom Corporation
+D8:50:E6	Broadcom Corporation
+DC:EF:09	Broadcom Corporation
+E0:98:61	Broadcom Corporation
+E4:25:E7	Broadcom Corporation
+E8:4E:84	Broadcom Corporation
+EC:35:86	Broadcom Corporation
+F0:18:98	Broadcom Corporation
+F4:5C:89	Broadcom Corporation
+F8:A9:D0	Broadcom Corporation
+FC:E9:98	Broadcom Corporation

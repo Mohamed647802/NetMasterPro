@@ -1,0 +1,73 @@
+# =============================================
+# NetMaster Pro — Android .gitignore
+# =============================================
+
+# --- Gradle build output ---
+.gradle/
+build/
+app/build/
+
+# --- Gradle wrapper JAR (not needed if CI generates it) ---
+# Uncomment next line if you want CI to always generate the wrapper
+# gradle/wrapper/gradle-wrapper.jar
+
+# --- Local properties (SDK path, signing secrets) ---
+local.properties
+keystore.properties
+*.jks
+*.keystore
+release.keystore
+
+# --- Android Studio / IntelliJ ---
+*.iml
+.idea/
+*.iws
+*.ipr
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+.idea/modules.xml
+.idea/misc.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/vcs.xml
+*.DS_Store
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
+
+# --- Kotlin ---
+*.class
+*.kotlin_module
+
+# --- Profiling & Captures ---
+captures/
+*.hprof
+
+# --- Lint ---
+lint/
+.lint/
+
+# --- Test results ---
+test-results/
+app/src/test/
+app/src/androidTest/
+
+# --- APKs / AABs (uploaded as CI artifacts, not committed) ---
+*.apk
+*.aab
+*.ap_
+
+# --- Signing ---
+*.jks
+*.keystore
+keystore.properties
+
+# --- Logs ---
+*.log

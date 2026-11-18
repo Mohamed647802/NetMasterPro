@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+    <!-- Pie chart style quota icon -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M11,2.05V13h10.95C21.46,7.6 16.9,3.05 11,2.05zM2,13c0,5.52 4.48,10 10,10 2.6,0 4.96,-0.99 6.73,-2.62L12,13H2z" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M13,2.05v8.95H21.95C21.44,6.21 17.69,2.56 13,2.05z" />
+</vector>
