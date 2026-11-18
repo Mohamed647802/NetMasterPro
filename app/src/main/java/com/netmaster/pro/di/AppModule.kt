@@ -18,7 +18,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
@@ -47,7 +46,7 @@ object AppModule {
         Retrofit.Builder()
             .baseUrl("http://192.168.1.1/") // placeholder; each adapter overrides this
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory(kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.serializersModule, okhttp3.MediaType.get("application/json")))
             .build()
 
     // ─── Room Database ────────────────────────────────────────────────────────
