@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.netmaster.pro.data.local.SignalSnapshotDao
 import com.netmaster.pro.data.local.SignalSnapshotEntity
 import com.netmaster.pro.data.model.LteSignalData
+import com.netmaster.pro.domain.adapter.LteBand
+import com.netmaster.pro.domain.adapter.NetworkMode
+import com.netmaster.pro.domain.repository.RouterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -14,15 +17,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ─── Domain placeholders (implemented by data/domain workers) ──────────────
-
-enum class NetworkMode { FOUR_G_ONLY, FOUR_G_THREE_G, AUTO }
-
-enum class LteBand(val number: Int, val label: String) {
-    B1(1, "B1"), B3(3, "B3"), B7(7, "B7"), B8(8, "B8"),
-    B20(20, "B20"), B28(28, "B28"), B38(38, "B38"), B40(40, "B40"), B41(41, "B41")
-}
-
 sealed class SignalUiState {
     object Loading : SignalUiState()
     data class Success(val signal: LteSignalData, val advice: String) : SignalUiState()
@@ -30,16 +24,7 @@ sealed class SignalUiState {
     object NotSupported : SignalUiState()
 }
 
-// ─── RouterRepository interface reference (provided by data layer) ──────────
-
-interface RouterRepository {
-    suspend fun getLteSignal(): Result<LteSignalData>
-    suspend fun setNetworkMode(mode: NetworkMode): Result<Unit>
-    suspend fun setLteBands(bands: List<LteBand>): Result<Unit>
-    suspend fun lockLteBands(bands: List<LteBand>): Result<Unit>
-}
-
-// ─── ViewModel ─────────────────────────────────────────────────────────────
+// ─── ViewModel ────────────────────────────────────────────────────────────────
 
 @HiltViewModel
 class SignalViewModel @Inject constructor(
@@ -60,7 +45,7 @@ class SignalViewModel @Inject constructor(
     private val _selectedBands = MutableStateFlow<Set<LteBand>>(emptySet())
     val selectedBands: StateFlow<Set<LteBand>> = _selectedBands.asStateFlow()
 
-    private val _networkMode = MutableStateFlow(NetworkMode.FOUR_G_ONLY)
+    private val _networkMode = MutableStateFlow(NetworkMode.LTE_ONLY)
     val networkMode: StateFlow<NetworkMode> = _networkMode.asStateFlow()
 
     private var pollingJob: Job? = null
@@ -116,7 +101,7 @@ class SignalViewModel @Inject constructor(
 
     fun lockBands(bands: List<LteBand>) {
         viewModelScope.launch {
-            routerRepository.lockLteBands(bands)
+            routerRepository.setBandSelection(bands)
         }
     }
 

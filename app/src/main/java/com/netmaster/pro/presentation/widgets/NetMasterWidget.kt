@@ -18,7 +18,7 @@ import androidx.glance.layout.*
 import androidx.glance.text.*
 import androidx.glance.unit.ColorProvider
 import androidx.glance.material3.ColorProviders
-import com.netmaster.pro.MainActivity
+import com.netmaster.pro.ui.MainActivity
 
 class NetMasterWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {

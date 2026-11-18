@@ -71,6 +71,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.netmaster.pro.R
+import com.netmaster.pro.domain.adapter.LteBand
+import com.netmaster.pro.domain.adapter.NetworkMode
 import com.netmaster.pro.data.model.LteSignalData
 import kotlin.math.cos
 import kotlin.math.sin
@@ -556,8 +558,8 @@ private fun NetworkModeSelector(
     onModeSelected: (NetworkMode) -> Unit
 ) {
     val modes = listOf(
-        NetworkMode.FOUR_G_ONLY to stringResource(R.string.network_mode_4g_only),
-        NetworkMode.FOUR_G_THREE_G to stringResource(R.string.network_mode_4g_3g),
+        NetworkMode.LTE_ONLY to stringResource(R.string.network_mode_4g_only),
+        NetworkMode.LTE_WCDMA to stringResource(R.string.network_mode_4g_3g),
         NetworkMode.AUTO to stringResource(R.string.network_mode_auto)
     )
 
@@ -610,7 +612,7 @@ private fun LteBandSelector(
                         FilterChip(
                             selected = band in selectedBands,
                             onClick = { onBandToggled(band) },
-                            label = { Text(band.label, fontSize = 11.sp) }
+                            label = { Text(band.frequency, fontSize = 11.sp) }
                         )
                     }
                 }

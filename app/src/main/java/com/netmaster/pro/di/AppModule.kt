@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.netmaster.pro.data.local.*
 import com.netmaster.pro.data.local.security.EncryptedPreferencesManager
 import com.netmaster.pro.data.network.OkHttpClientProvider
@@ -16,6 +17,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -24,11 +27,13 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = "netmaster_settings"
 )
 
+private val json = Json { ignoreUnknownKeys = true }
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    // ─── OkHttp ──────────────────────────────────────────────────────────────
+    // ─── OkHttp ──────────────────────────────────────────────────────────────────
 
     @Provides
     @Singleton
@@ -46,7 +51,7 @@ object AppModule {
         Retrofit.Builder()
             .baseUrl("http://192.168.1.1/") // placeholder; each adapter overrides this
             .client(okHttpClient)
-            .addConverterFactory(com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory(kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.serializersModule, okhttp3.MediaType.get("application/json")))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
     // ─── Room Database ────────────────────────────────────────────────────────
