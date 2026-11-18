@@ -288,12 +288,11 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val channel = json.optString("wifi_channel", "0").trim().toIntOrNull() ?: 0
 
             Result.success(WifiSettings(
-                ssid = ssid,
-                password = password,
-                band = "2.4GHz",
-                channel = channel,
-                isEnabled = enabled,
-                securityMode = "WPA2PSK"
+                ssid2g = ssid,
+                password2g = password,
+                enabled2g = enabled,
+                channel2g = channel,
+                security = "WPA2PSK"
             ))
         } catch (e: Exception) {
             Result.failure(Exception("Failed to parse ZTE WiFi settings: ${e.message}"))
@@ -301,12 +300,12 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
     }
 
     override suspend fun setWifiSettings(settings: WifiSettings): Result<Unit> = withContext(Dispatchers.IO) {
-        val enabledVal = if (settings.isEnabled) "1" else "0"
+        val enabledVal = if (settings.enabled2g) "1" else "0"
         val formBody = "isTest=false&goformId=SET_WIFI_INFO" +
-            "&ssid=${java.net.URLEncoder.encode(settings.ssid, "UTF-8")}" +
-            "&wifi_password=${java.net.URLEncoder.encode(settings.password, "UTF-8")}" +
+            "&ssid=${java.net.URLEncoder.encode(settings.ssid2g, "UTF-8")}" +
+            "&wifi_password=${java.net.URLEncoder.encode(settings.password2g, "UTF-8")}" +
             "&WifiEnable=$enabledVal" +
-            "&wifi_channel=${settings.channel}" +
+            "&wifi_channel=${settings.channel2g}" +
             "&security_mode=WPA2PSK" +
             "&broadcast=1"
         val result = doPost(formBody)
@@ -518,6 +517,10 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             NetworkMode.LTE_ONLY -> "NETWORK_auto_lte"
             NetworkMode.WCDMA_ONLY -> "NETWORK_wcdma_only"
             NetworkMode.GSM_ONLY -> "NETWORK_gprs_only"
+            NetworkMode.LTE_WCDMA -> "NETWORK_auto_lte"
+            NetworkMode.WCDMA_GSM -> "NETWORK_auto"
+            NetworkMode.NR_LTE -> "NETWORK_auto_5g"
+            NetworkMode.NR_ONLY -> "NETWORK_nr_only"
             NetworkMode.AUTO -> "NETWORK_auto"
         }
         val formBody = "isTest=false&goformId=SET_BEARER_PREFERENCE&BearerPreference=$modeStr"
@@ -617,9 +620,9 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
         // ZTE doesn't have a standard QoS goform — try anyway
         for (rule in rules) {
             val formBody = "isTest=false&goformId=QOS_SETTINGS" +
-                "&mac_addr=${rule.mac}" +
-                "&up_rate=${rule.uploadKbps}" +
-                "&down_rate=${rule.downloadKbps}"
+                "&mac_addr=${rule.deviceMac}" +
+                "&up_rate=${rule.uploadLimitKbps}" +
+                "&down_rate=${rule.downloadLimitKbps}"
             doPost(formBody)
         }
         Result.success(Unit) // Best-effort
@@ -649,7 +652,7 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
                 "&port_end=${rule.externalPort}" +
                 "&ip_address=${rule.internalIp}" +
                 "&ip_port=${rule.internalPort}" +
-                "&protocol=${rule.protocol.uppercase()}" +
+                "&protocol=${rule.protocol.toWireString()}" +
                 "&enable=1"
             val result = doPost(formBody)
             if (result.isFailure) return@withContext Result.failure(result.exceptionOrNull()!!)
@@ -669,7 +672,7 @@ class ZteAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
                     val r = rulesArr.getJSONObject(i)
                     PortForwardRule(
                         name = r.optString("rule_name", "Rule$i"),
-                        protocol = r.optString("protocol", "TCP"),
+                        protocol = PortProtocol.fromString(r.optString("protocol", "TCP")),
                         externalPort = r.optString("port_start", "0").toIntOrNull() ?: 0,
                         internalIp = r.optString("ip_address", ""),
                         internalPort = r.optString("ip_port", "0").toIntOrNull() ?: 0

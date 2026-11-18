@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -176,5 +177,3 @@ private fun DslAdviceCard(advice: DslAdvice) {
         }
     }
 }
-
-private val Int.sp @androidx.compose.runtime.Composable get() = androidx.compose.ui.unit.sp

@@ -14,6 +14,7 @@ import com.netmaster.pro.domain.adapter.LteBand
 import com.netmaster.pro.domain.adapter.MacFilterMode
 import com.netmaster.pro.domain.adapter.NetworkMode
 import com.netmaster.pro.domain.adapter.PortForwardRule
+import com.netmaster.pro.domain.adapter.PortProtocol
 import com.netmaster.pro.domain.adapter.QosRule
 import com.netmaster.pro.domain.adapter.RouterAdapter
 import com.netmaster.pro.domain.adapter.RouterSecurityInfo
@@ -172,17 +173,17 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
         loginPassword = password
 
         // Verify credentials by calling system/resource
-        return when (val result = restGet("/system/resource")) {
-            is Result.Success -> Result.success(Unit)
-            is Result.Failure -> {
-                val msg = result.exception?.message ?: "Login failed"
+        return restGet("/system/resource").fold(
+            onSuccess = { Result.success(Unit) },
+            onFailure = { err ->
+                val msg = err.message ?: "Login failed"
                 if (msg.contains("Unauthorized")) {
                     Result.failure(Exception("Invalid MikroTik credentials for $ip"))
                 } else {
                     Result.failure(Exception(msg))
                 }
             }
-        }
+        )
     }
 
     override suspend fun logout() {
@@ -305,12 +306,11 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val wlan = arr.getJSONObject(0)
             Result.success(
                 WifiSettings(
-                    ssid = wlan.optString("ssid", ""),
-                    password = "",
-                    band = wlan.optString("band", "2ghz-b/g/n"),
-                    channel = wlan.optString("channel", "0").toIntOrNull() ?: 0,
-                    isEnabled = !wlan.optBoolean("disabled", false),
-                    securityMode = wlan.optString("security-profile", "default")
+                    ssid2g = wlan.optString("ssid", ""),
+                    password2g = "",
+                    enabled2g = !wlan.optBoolean("disabled", false),
+                    channel2g = wlan.optString("channel", "0").toIntOrNull() ?: 0,
+                    security = wlan.optString("security-profile", "default")
                 )
             )
         } catch (e: Exception) {
@@ -326,8 +326,8 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val wlan = arr.getJSONObject(0)
             val id = wlan.optString(".id", "")
             val patchJson = JSONObject().apply {
-                put("ssid", settings.ssid)
-                put("disabled", !settings.isEnabled)
+                put("ssid", settings.ssid2g)
+                put("disabled", !settings.enabled2g)
             }.toString()
             restPatch("/interface/wireless/$id", patchJson).map { Unit }
         } catch (e: Exception) {
@@ -505,11 +505,10 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
 
             Result.success(
                 RouterSecurityInfo(
-                    adminPasswordChanged = adminPasswordChanged,
+                    defaultCredentialsChanged = adminPasswordChanged,
                     remoteManagementEnabled = remoteManagementEnabled,
-                    upnpEnabled = false, // MikroTik UPnP requires explicit config
-                    firewallEnabled = firewallEnabled,
-                    openPorts = openPorts
+                    uPnPEnabled = false, // MikroTik UPnP requires explicit config
+                    firewallEnabled = firewallEnabled
                 )
             )
         } catch (e: Exception) {
@@ -585,15 +584,15 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
     override suspend fun setQos(rules: List<QosRule>): Result<Unit> = withContext(Dispatchers.IO) {
         try {
             for (rule in rules) {
-                val uploadLimit = "${rule.uploadKbps}k"
-                val downloadLimit = "${rule.downloadKbps}k"
+                val uploadLimit = "${rule.uploadLimitKbps}k"
+                val downloadLimit = "${rule.downloadLimitKbps}k"
                 restPost(
                     "/queue/simple",
                     JSONObject().apply {
-                        put("name", "netmaster-qos-${rule.mac.replace(":", "")}")
-                        put("target", "${rule.mac}/32")
+                        put("name", "netmaster-qos-${rule.deviceMac.replace(":", "")}")
+                        put("target", "${rule.deviceMac}/32")
                         put("max-limit", "$uploadLimit/$downloadLimit")
-                        put("priority", "${rule.priority}")
+                        put("priority", rule.priority.name)
                         put("comment", "NetMasterPro QoS")
                     }.toString()
                 )
@@ -676,7 +675,7 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             "/ip/firewall/nat",
             JSONObject().apply {
                 put("chain", "dstnat")
-                put("protocol", rule.protocol.lowercase())
+                put("protocol", rule.protocol.toWireString(lowercase = true))
                 put("dst-port", rule.externalPort.toString())
                 put("action", "dst-nat")
                 put("to-addresses", rule.internalIp)
@@ -697,7 +696,7 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
                 rules.add(
                     PortForwardRule(
                         name = entry.optString("comment", "Rule ${i + 1}"),
-                        protocol = entry.optString("protocol", "tcp"),
+                        protocol = PortProtocol.fromString(entry.optString("protocol", "tcp")),
                         externalPort = entry.optString("dst-port", "0").toIntOrNull() ?: 0,
                         internalIp = entry.optString("to-addresses", ""),
                         internalPort = entry.optString("to-ports", "0").toIntOrNull() ?: 0
@@ -716,16 +715,5 @@ class MikroTikAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
 
     override suspend fun getApnProfiles(): Result<List<ApnProfile>> {
         return Result.failure(Exception("APN profiles not supported by MikroTik REST adapter."))
-    }
-
-    // ---------------------------------------------------------------------------
-    // Helper extension (avoids Result.getOrThrow unavailability issues)
-    // ---------------------------------------------------------------------------
-    private fun <T> Result<T>.getOrThrow(): T {
-        return if (isSuccess) getOrNull()!! else throw (exceptionOrNull() ?: Exception("Unknown error"))
-    }
-
-    private fun <T, R> Result<T>.map(transform: (T) -> R): Result<R> {
-        return if (isSuccess) Result.success(transform(getOrNull()!!)) else Result.failure(exceptionOrNull()!!)
     }
 }

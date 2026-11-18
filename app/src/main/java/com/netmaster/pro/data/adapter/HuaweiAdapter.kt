@@ -322,12 +322,11 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val security = doc.selectFirst("WifiWpaEncryptionModes")?.text()?.trim() ?: "WPA2PSK"
 
             Result.success(WifiSettings(
-                ssid = ssid,
-                password = password,
-                band = "2.4GHz",
-                channel = channel,
-                isEnabled = enabled,
-                securityMode = security
+                ssid2g = ssid,
+                password2g = password,
+                enabled2g = enabled,
+                channel2g = channel,
+                security = security
             ))
         } catch (e: Exception) {
             Result.failure(Exception("Failed to parse WiFi settings: ${e.message}"))
@@ -335,16 +334,16 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
     }
 
     override suspend fun setWifiSettings(settings: WifiSettings): Result<Unit> = withContext(Dispatchers.IO) {
-        val enabledVal = if (settings.isEnabled) "1" else "0"
+        val enabledVal = if (settings.enabled2g) "1" else "0"
         val xmlBody = """<?xml version="1.0" encoding="UTF-8"?>
 <request>
-    <WifiSsid>${settings.ssid}</WifiSsid>
-    <WifiChannel>${settings.channel}</WifiChannel>
+    <WifiSsid>${settings.ssid2g}</WifiSsid>
+    <WifiChannel>${settings.channel2g}</WifiChannel>
     <WifiHide>0</WifiHide>
     <WifiCountry>US</WifiCountry>
     <WifiEnable>${enabledVal}</WifiEnable>
-    <WifiWpaEncryptionModes>${settings.securityMode}</WifiWpaEncryptionModes>
-    <WifiWpaPreSharedKey>${settings.password}</WifiWpaPreSharedKey>
+    <WifiWpaEncryptionModes>${settings.security}</WifiWpaEncryptionModes>
+    <WifiWpaPreSharedKey>${settings.password2g}</WifiWpaPreSharedKey>
 </request>"""
         val result = postXml("/api/wlan/basic-settings", xmlBody)
         if (result.isFailure) return@withContext Result.failure(result.exceptionOrNull()!!)
@@ -515,22 +514,22 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
 
         try {
             val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-            val downstream = doc.selectFirst("DownstreamMaxRate")?.text()?.toDoubleOrNull()
-                ?: doc.selectFirst("ActualDataRateDownstream")?.text()?.toDoubleOrNull() ?: 0.0
-            val upstream = doc.selectFirst("UpstreamMaxRate")?.text()?.toDoubleOrNull()
-                ?: doc.selectFirst("ActualDataRateUpstream")?.text()?.toDoubleOrNull() ?: 0.0
-            val snrDown = doc.selectFirst("DownstreamNoiseMargin")?.text()?.toDoubleOrNull() ?: 0.0
-            val snrUp = doc.selectFirst("UpstreamNoiseMargin")?.text()?.toDoubleOrNull() ?: 0.0
-            val attDown = doc.selectFirst("DownstreamAttenuation")?.text()?.toDoubleOrNull() ?: 0.0
-            val attUp = doc.selectFirst("UpstreamAttenuation")?.text()?.toDoubleOrNull() ?: 0.0
+            val downstream = doc.selectFirst("DownstreamMaxRate")?.text()?.toIntOrNull()
+                ?: doc.selectFirst("ActualDataRateDownstream")?.text()?.toIntOrNull() ?: 0
+            val upstream = doc.selectFirst("UpstreamMaxRate")?.text()?.toIntOrNull()
+                ?: doc.selectFirst("ActualDataRateUpstream")?.text()?.toIntOrNull() ?: 0
+            val snrDown = doc.selectFirst("DownstreamNoiseMargin")?.text()?.toFloatOrNull() ?: 0f
+            val snrUp = doc.selectFirst("UpstreamNoiseMargin")?.text()?.toFloatOrNull() ?: 0f
+            val attDown = doc.selectFirst("DownstreamAttenuation")?.text()?.toFloatOrNull() ?: 0f
+            val attUp = doc.selectFirst("UpstreamAttenuation")?.text()?.toFloatOrNull() ?: 0f
 
             Result.success(DslStats(
-                downstream = downstream,
-                upstream = upstream,
-                snrDown = snrDown,
-                snrUp = snrUp,
-                attenuationDown = attDown,
-                attenuationUp = attUp
+                downstreamRate = downstream,
+                upstreamRate = upstream,
+                downstreamAttenuation = attDown,
+                upstreamAttenuation = attUp,
+                downstreamNoiseMargin = snrDown,
+                upstreamNoiseMargin = snrUp
             ))
         } catch (e: Exception) {
             Result.failure(Exception("Failed to parse DSL stats: ${e.message}"))
@@ -563,6 +562,10 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             NetworkMode.LTE_ONLY -> "03"
             NetworkMode.WCDMA_ONLY -> "02"
             NetworkMode.GSM_ONLY -> "01"
+            NetworkMode.LTE_WCDMA -> "0302"
+            NetworkMode.WCDMA_GSM -> "0201"
+            NetworkMode.NR_LTE -> "0803"
+            NetworkMode.NR_ONLY -> "08"
             NetworkMode.AUTO -> "00"
         }
         val xmlBody = """<?xml version="1.0" encoding="UTF-8"?>
@@ -583,15 +586,15 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
         // Huawei uses hex bitmask for LTE bands
         // Bit positions: B1=bit0, B3=bit2, B7=bit6, B8=bit7, B20=bit19, B28=bit27, B38=bit37, B40=bit39, B41=bit40
         val bandBitMap = mapOf(
-            LteBand.B1 to 0x1L,
-            LteBand.B3 to 0x4L,
-            LteBand.B7 to 0x40L,
-            LteBand.B8 to 0x80L,
-            LteBand.B20 to 0x80000L,
-            LteBand.B28 to 0x8000000L,
-            LteBand.B38 to 0x2000000000L,
-            LteBand.B40 to 0x8000000000L,
-            LteBand.B41 to 0x10000000000L
+            LteBand.BAND_1 to 0x1L,
+            LteBand.BAND_3 to 0x4L,
+            LteBand.BAND_7 to 0x40L,
+            LteBand.BAND_8 to 0x80L,
+            LteBand.BAND_20 to 0x80000L,
+            LteBand.BAND_28 to 0x8000000L,
+            LteBand.BAND_38 to 0x2000000000L,
+            LteBand.BAND_40 to 0x8000000000L,
+            LteBand.BAND_41 to 0x10000000000L
         )
         val lteBandMask = bands.fold(0L) { acc, band -> acc or (bandBitMap[band] ?: 0L) }
         val lteBandHex = "%016X".format(lteBandMask)
@@ -663,11 +666,10 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val upnpEnabled = upnpDoc.selectFirst("UPnPEnable")?.text()?.trim() == "1"
 
             Result.success(RouterSecurityInfo(
-                adminPasswordChanged = true, // Cannot determine from API; assume changed
+                defaultCredentialsChanged = true, // Cannot determine from API; assume changed
                 remoteManagementEnabled = remoteManagement,
-                upnpEnabled = upnpEnabled,
-                firewallEnabled = firewallEnabled,
-                openPorts = emptyList()
+                uPnPEnabled = upnpEnabled,
+                firewallEnabled = firewallEnabled
             ))
         } catch (e: Exception) {
             Result.failure(Exception("Failed to get security info: ${e.message}"))
@@ -702,10 +704,10 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
     override suspend fun setQos(rules: List<QosRule>): Result<Unit> = withContext(Dispatchers.IO) {
         val ruleEntries = rules.joinToString("") { rule ->
             """<QosRule>
-    <Mac>${rule.mac}</Mac>
-    <DownRate>${rule.downloadKbps}</DownRate>
-    <UpRate>${rule.uploadKbps}</UpRate>
-    <Priority>${rule.priority}</Priority>
+    <Mac>${rule.deviceMac}</Mac>
+    <DownRate>${rule.downloadLimitKbps}</DownRate>
+    <UpRate>${rule.uploadLimitKbps}</UpRate>
+    <Priority>${rule.priority.name}</Priority>
 </QosRule>"""
         }
         val xmlBody = """<?xml version="1.0" encoding="UTF-8"?>
@@ -750,7 +752,7 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
         <WanPort>${rule.externalPort}</WanPort>
         <LanIp>${rule.internalIp}</LanIp>
         <LanPort>${rule.internalPort}</LanPort>
-        <Protocol>${rule.protocol.uppercase()}</Protocol>
+        <Protocol>${rule.protocol.toWireString()}</Protocol>
     </Portmap>
 </request>"""
             val result = postXml("/api/security/nat", xmlBody)
@@ -769,7 +771,7 @@ class HuaweiAdapter(private val okHttpClient: OkHttpClient) : RouterAdapter {
             val rules = doc.select("Portmap").map { pm ->
                 PortForwardRule(
                     name = pm.selectFirst("Description")?.text()?.trim() ?: "",
-                    protocol = pm.selectFirst("Protocol")?.text()?.trim() ?: "TCP",
+                    protocol = PortProtocol.fromString(pm.selectFirst("Protocol")?.text()?.trim() ?: "TCP"),
                     externalPort = pm.selectFirst("WanPort")?.text()?.trim()?.toIntOrNull() ?: 0,
                     internalIp = pm.selectFirst("LanIp")?.text()?.trim() ?: "",
                     internalPort = pm.selectFirst("LanPort")?.text()?.trim()?.toIntOrNull() ?: 0

@@ -1,14 +1,17 @@
 package com.netmaster.pro.notification
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.netmaster.pro.R
 import com.netmaster.pro.data.model.ConnectedDevice
 import com.netmaster.pro.ui.MainActivity
@@ -110,12 +113,7 @@ class IntruderNotificationHelper @Inject constructor(
                 .setNumber(devices.size)
         }
 
-        try {
-            NotificationManagerCompat.from(context)
-                .notify(NOTIF_ID_INTRUDER, builder.build())
-        } catch (e: SecurityException) {
-            // POST_NOTIFICATIONS not granted
-        }
+        notifySafely(NOTIF_ID_INTRUDER, builder.build())
     }
 
     fun showQuotaAlert(percentUsed: Int, remainingGB: Double) {
@@ -150,9 +148,21 @@ class IntruderNotificationHelper @Inject constructor(
             .setAutoCancel(true)
             .build()
 
+        notifySafely(NOTIF_ID_QUOTA, notification)
+    }
+
+    private fun notifySafely(id: Int, notification: Notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         try {
-            NotificationManagerCompat.from(context).notify(NOTIF_ID_QUOTA, notification)
-        } catch (e: SecurityException) {
+            NotificationManagerCompat.from(context).notify(id, notification)
+        } catch (_: SecurityException) {
             // POST_NOTIFICATIONS not granted
         }
     }

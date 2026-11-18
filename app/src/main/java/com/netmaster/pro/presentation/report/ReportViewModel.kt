@@ -113,7 +113,7 @@ class ReportViewModel @Inject constructor(
         val file = File(path)
         val uri = FileProvider.getUriForFile(
             getApplication(),
-            "${getApplication<Application>().packageName}.provider",
+            "${getApplication<Application>().packageName}.fileprovider",
             file
         )
         val intent = Intent(Intent.ACTION_SEND).apply {

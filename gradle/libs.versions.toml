@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+material = "1.12.0"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.28"
 hilt = "2.52"
@@ -34,6 +35,7 @@ retrofitKotlinxSerializationConverter = "1.0.0"
 # AndroidX Core
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Compose BOM
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }

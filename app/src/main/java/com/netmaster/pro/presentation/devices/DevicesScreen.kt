@@ -1,5 +1,6 @@
 package com.netmaster.pro.presentation.devices
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -557,11 +558,3 @@ fun WifiBand.toBandLabel(): String = when (this) {
     WifiBand.WIRED -> "LAN"
     WifiBand.UNKNOWN -> "?"
 }
-
-// background extension for Box (needs import)
-private fun androidx.compose.ui.Modifier.background(
-    color: Color,
-    shape: androidx.compose.ui.graphics.Shape
-) = this.then(
-    androidx.compose.foundation.background(color, shape)
-)

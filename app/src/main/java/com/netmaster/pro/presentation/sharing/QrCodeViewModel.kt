@@ -105,7 +105,7 @@ class QrCodeViewModel @Inject constructor(application: Application) : AndroidVie
                 FileOutputStream(file).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
                 val uri = FileProvider.getUriForFile(
                     getApplication(),
-                    "${getApplication<Application>().packageName}.provider",
+                    "${getApplication<Application>().packageName}.fileprovider",
                     file
                 )
                 val intent = Intent(Intent.ACTION_SEND).apply {

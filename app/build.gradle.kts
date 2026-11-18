@@ -66,10 +66,15 @@ android {
     }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     // Core KTX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.google.material)
 
     // Compose BOM — all compose libs inherit their version from here
     implementation(platform(libs.androidx.compose.bom))

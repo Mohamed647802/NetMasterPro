@@ -14,6 +14,7 @@ import com.netmaster.pro.domain.adapter.LteBand
 import com.netmaster.pro.domain.adapter.MacFilterMode
 import com.netmaster.pro.domain.adapter.NetworkMode
 import com.netmaster.pro.domain.adapter.PortForwardRule
+import com.netmaster.pro.domain.adapter.PortProtocol
 import com.netmaster.pro.domain.adapter.QosRule
 import com.netmaster.pro.domain.adapter.RouterAdapter
 import com.netmaster.pro.domain.adapter.RouterSecurityInfo
@@ -321,12 +322,11 @@ class TpLinkAdapter @Inject constructor(
             val wireless = json.optJSONObject("wireless") ?: json
             Result.success(
                 WifiSettings(
-                    ssid = wireless.optString("ssid", ""),
-                    password = wireless.optString("psk", ""),
-                    band = wireless.optString("band", "2.4G"),
-                    channel = wireless.optInt("channel", 0),
-                    isEnabled = wireless.optInt("enable", 1) == 1,
-                    securityMode = wireless.optString("security", "WPA2")
+                    ssid2g = wireless.optString("ssid", ""),
+                    password2g = wireless.optString("psk", ""),
+                    enabled2g = wireless.optInt("enable", 1) == 1,
+                    channel2g = wireless.optInt("channel", 0),
+                    security = wireless.optString("security", "WPA2")
                 )
             )
         } catch (e: Exception) {
@@ -341,11 +341,11 @@ class TpLinkAdapter @Inject constructor(
                     return@withContext Result.failure(Exception("WiFi settings require stok login"))
                 val body = JSONObject().apply {
                     put("wireless", JSONObject().apply {
-                        put("ssid", settings.ssid)
-                        put("psk", settings.password)
-                        put("enable", if (settings.isEnabled) 1 else 0)
-                        put("security", settings.securityMode)
-                        put("channel", settings.channel)
+                        put("ssid", settings.ssid2g)
+                        put("psk", settings.password2g)
+                        put("enable", if (settings.enabled2g) 1 else 0)
+                        put("security", settings.security)
+                        put("channel", settings.channel2g)
                     })
                 }.toString()
                 val (code, _) = httpPost(stokUrl("api/wireless/wlan_host"), body)
@@ -514,11 +514,10 @@ class TpLinkAdapter @Inject constructor(
             val firewall = json.optJSONObject("firewall") ?: json
             Result.success(
                 RouterSecurityInfo(
-                    adminPasswordChanged = true, // assume changed if logged in
+                    defaultCredentialsChanged = true, // assume changed if logged in
                     remoteManagementEnabled = firewall.optBoolean("remote_mgmt", false),
-                    upnpEnabled = firewall.optBoolean("upnp", false),
-                    firewallEnabled = firewall.optBoolean("enable", true),
-                    openPorts = emptyList()
+                    uPnPEnabled = firewall.optBoolean("upnp", false),
+                    firewallEnabled = firewall.optBoolean("enable", true)
                 )
             )
         } catch (e: Exception) {
@@ -562,10 +561,10 @@ class TpLinkAdapter @Inject constructor(
             val rulesArray = JSONArray()
             rules.forEach { rule ->
                 rulesArray.put(JSONObject().apply {
-                    put("mac", rule.mac)
-                    put("upload_kbps", rule.uploadKbps)
-                    put("download_kbps", rule.downloadKbps)
-                    put("priority", rule.priority)
+                    put("mac", rule.deviceMac)
+                    put("upload_kbps", rule.uploadLimitKbps)
+                    put("download_kbps", rule.downloadLimitKbps)
+                    put("priority", rule.priority.name)
                 })
             }
             val body = JSONObject().apply { put("qos", JSONObject().apply { put("rules", rulesArray) }) }.toString()
@@ -610,7 +609,7 @@ class TpLinkAdapter @Inject constructor(
                 val body = JSONObject().apply {
                     put("nat", JSONObject().apply {
                         put("name", rule.name)
-                        put("protocol", rule.protocol.lowercase())
+                        put("protocol", rule.protocol.toWireString(lowercase = true))
                         put("external_port", rule.externalPort)
                         put("internal_ip", rule.internalIp)
                         put("internal_port", rule.internalPort)
@@ -640,7 +639,7 @@ class TpLinkAdapter @Inject constructor(
                     rules.add(
                         PortForwardRule(
                             name = entry.optString("name", "Rule $i"),
-                            protocol = entry.optString("protocol", "tcp").uppercase(),
+                            protocol = PortProtocol.fromString(entry.optString("protocol", "tcp")),
                             externalPort = entry.optInt("external_port", 0),
                             internalIp = entry.optString("internal_ip", ""),
                             internalPort = entry.optInt("internal_port", 0)

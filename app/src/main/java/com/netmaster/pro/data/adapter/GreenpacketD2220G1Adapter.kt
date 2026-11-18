@@ -14,6 +14,7 @@ import com.netmaster.pro.domain.adapter.LteBand
 import com.netmaster.pro.domain.adapter.MacFilterMode
 import com.netmaster.pro.domain.adapter.NetworkMode
 import com.netmaster.pro.domain.adapter.PortForwardRule
+import com.netmaster.pro.domain.adapter.PortProtocol
 import com.netmaster.pro.domain.adapter.QosRule
 import com.netmaster.pro.domain.adapter.RouterAdapter
 import com.netmaster.pro.domain.adapter.RouterSecurityInfo
@@ -98,8 +99,8 @@ class GreenpacketD2220G1Adapter(
     // ─── Supported LTE bands on D2-220G1 ─────────────────────────────────────
 
     private val supportedLteBands: List<LteBand> = listOf(
-        LteBand.B1, LteBand.B3, LteBand.B7, LteBand.B8,
-        LteBand.B20, LteBand.B28, LteBand.B38, LteBand.B40, LteBand.B41
+        LteBand.BAND_1, LteBand.BAND_3, LteBand.BAND_7, LteBand.BAND_8,
+        LteBand.BAND_20, LteBand.BAND_28, LteBand.BAND_38, LteBand.BAND_40, LteBand.BAND_41
     )
 
     // ─── Crypto helpers ───────────────────────────────────────────────────────
@@ -638,12 +639,11 @@ class GreenpacketD2220G1Adapter(
             val json = JSONObject(response)
             Result.success(
                 WifiSettings(
-                    ssid = json.optString("ssid", ""),
-                    password = json.optString("storagePwd", ""),
-                    band = "2.4GHz",
-                    channel = 0,
-                    isEnabled = json.optString("WifiEnable", "1") == "1",
-                    securityMode = "WPA2"
+                    ssid2g = json.optString("ssid", ""),
+                    password2g = json.optString("storagePwd", ""),
+                    enabled2g = json.optString("WifiEnable", "1") == "1",
+                    channel2g = 0,
+                    security = "WPA2"
                 )
             )
         } catch (e: Exception) {
@@ -659,9 +659,9 @@ class GreenpacketD2220G1Adapter(
                     mapOf(
                         "isTest" to "false",
                         "goformId" to "SET_WIFI_INFO",
-                        "ssid" to settings.ssid,
-                        "wifi_password" to settings.password,
-                        "WifiEnable" to if (settings.isEnabled) "1" else "0"
+                        "ssid" to settings.ssid2g,
+                        "wifi_password" to settings.password2g,
+                        "WifiEnable" to if (settings.enabled2g) "1" else "0"
                     )
                 )
                 Result.success(Unit)
@@ -896,6 +896,10 @@ class GreenpacketD2220G1Adapter(
                     NetworkMode.LTE_ONLY -> "LTE_ONLY"
                     NetworkMode.WCDMA_ONLY -> "WCDMA_ONLY"
                     NetworkMode.GSM_ONLY -> "GSM_ONLY"
+                    NetworkMode.LTE_WCDMA -> "LTE_WCDMA"
+                    NetworkMode.WCDMA_GSM,
+                    NetworkMode.NR_LTE,
+                    NetworkMode.NR_ONLY,
                     NetworkMode.AUTO -> "AUTO"
                 }
                 postForm(
@@ -921,15 +925,15 @@ class GreenpacketD2220G1Adapter(
                 // Calculate bitmask — ZTE-style band bitmask
                 val bandBitmask = bands.fold(0L) { acc, band ->
                     acc or when (band) {
-                        LteBand.B1 -> 0x1L
-                        LteBand.B3 -> 0x4L
-                        LteBand.B7 -> 0x40L
-                        LteBand.B8 -> 0x80L
-                        LteBand.B20 -> 0x80000L
-                        LteBand.B28 -> 0x8000000L
-                        LteBand.B38 -> 0x2000000000L
-                        LteBand.B40 -> 0x8000000000L
-                        LteBand.B41 -> 0x10000000000L
+                        LteBand.BAND_1 -> 0x1L
+                        LteBand.BAND_3 -> 0x4L
+                        LteBand.BAND_7 -> 0x40L
+                        LteBand.BAND_8 -> 0x80L
+                        LteBand.BAND_20 -> 0x80000L
+                        LteBand.BAND_28 -> 0x8000000L
+                        LteBand.BAND_38 -> 0x2000000000L
+                        LteBand.BAND_40 -> 0x8000000000L
+                        LteBand.BAND_41 -> 0x10000000000L
                     }
                 }
                 val bitmaskHex = "0x${bandBitmask.toString(16).uppercase()}"
@@ -966,11 +970,10 @@ class GreenpacketD2220G1Adapter(
                 val json = JSONObject(response)
                 Result.success(
                     RouterSecurityInfo(
-                        adminPasswordChanged = true, // Can't easily detect this
+                        defaultCredentialsChanged = true, // Can't easily detect this
                         remoteManagementEnabled = json.optString("remote_mgt_enable", "0") == "1",
-                        upnpEnabled = json.optString("upnp_switch", "0") == "1",
-                        firewallEnabled = json.optString("firewall_switch", "1") == "1",
-                        openPorts = emptyList()
+                        uPnPEnabled = json.optString("upnp_switch", "0") == "1",
+                        firewallEnabled = json.optString("firewall_switch", "1") == "1"
                     )
                 )
             } catch (e: Exception) {
@@ -1040,7 +1043,7 @@ class GreenpacketD2220G1Adapter(
                         "isTest" to "false",
                         "goformId" to "ADD_PORT_MAP_CFG",
                         "nat_port_map_name" to rule.name,
-                        "nat_port_map_protocol" to rule.protocol,
+                        "nat_port_map_protocol" to rule.protocol.toWireString(),
                         "nat_port_map_wan_start_port" to rule.externalPort.toString(),
                         "nat_port_map_wan_end_port" to rule.externalPort.toString(),
                         "nat_port_map_lan_host_ip" to rule.internalIp,
@@ -1065,7 +1068,7 @@ class GreenpacketD2220G1Adapter(
                     rules.add(
                         PortForwardRule(
                             name = item.optString("name", "Rule$i"),
-                            protocol = item.optString("protocol", "TCP"),
+                            protocol = PortProtocol.fromString(item.optString("protocol", "TCP")),
                             externalPort = item.optString("wan_start_port", "0").toIntOrNull() ?: 0,
                             internalIp = item.optString("lan_host_ip", ""),
                             internalPort = item.optString("lan_start_port", "0").toIntOrNull() ?: 0
@@ -1094,7 +1097,7 @@ class GreenpacketD2220G1Adapter(
                     "apn" to apn.apn,
                     "ppp_username" to apn.username,
                     "ppp_passwd" to apn.password,
-                    "ppp_auth_mode" to apn.authType
+                    "ppp_auth_mode" to "0"
                 )
             )
             Result.success(Unit)

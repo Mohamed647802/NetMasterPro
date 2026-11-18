@@ -14,6 +14,7 @@ import com.netmaster.pro.domain.adapter.LteBand
 import com.netmaster.pro.domain.adapter.MacFilterMode
 import com.netmaster.pro.domain.adapter.NetworkMode
 import com.netmaster.pro.domain.adapter.PortForwardRule
+import com.netmaster.pro.domain.adapter.PortProtocol
 import com.netmaster.pro.domain.adapter.QosRule
 import com.netmaster.pro.domain.adapter.RouterAdapter
 import com.netmaster.pro.domain.adapter.RouterSecurityInfo
@@ -375,12 +376,11 @@ class OpenWrtUbusAdapter @Inject constructor(
             }
             Result.success(
                 WifiSettings(
-                    ssid = ssid,
-                    password = key,
-                    band = "2.4G",
-                    channel = channel,
-                    isEnabled = !disabled,
-                    securityMode = encryption
+                    ssid2g = ssid,
+                    password2g = key,
+                    enabled2g = !disabled,
+                    channel2g = channel,
+                    security = encryption
                 )
             )
         } catch (e: Exception) {
@@ -399,21 +399,21 @@ class OpenWrtUbusAdapter @Inject constructor(
                         put("config", "wireless")
                         put("section", "default_radio0")
                         put("values", JSONObject().apply {
-                            put("ssid", settings.ssid)
-                            put("key", settings.password)
-                            put("disabled", if (settings.isEnabled) "0" else "1")
-                            put("encryption", settings.securityMode)
+                            put("ssid", settings.ssid2g)
+                            put("key", settings.password2g)
+                            put("disabled", if (settings.enabled2g) "0" else "1")
+                            put("encryption", settings.security)
                         })
                     }
                 )
                 // Also set channel on the device section
-                if (settings.channel > 0) {
+                if (settings.channel2g > 0) {
                     ubusCall(
                         sessionToken, "uci", "set",
                         JSONObject().apply {
                             put("config", "wireless")
                             put("section", "radio0")
-                            put("values", JSONObject().apply { put("channel", settings.channel.toString()) })
+                            put("values", JSONObject().apply { put("channel", settings.channel2g.toString()) })
                         }
                     )
                 }
@@ -676,11 +676,10 @@ class OpenWrtUbusAdapter @Inject constructor(
 
             Result.success(
                 RouterSecurityInfo(
-                    adminPasswordChanged = true, // assume true if we're logged in
+                    defaultCredentialsChanged = true, // assume true if we're logged in
                     remoteManagementEnabled = remoteManagementEnabled,
-                    upnpEnabled = upnpEnabled,
-                    firewallEnabled = true, // OpenWrt has firewall by default
-                    openPorts = openPorts.distinct()
+                    uPnPEnabled = upnpEnabled,
+                    firewallEnabled = true // OpenWrt has firewall by default
                 )
             )
         } catch (e: Exception) {
@@ -734,9 +733,9 @@ class OpenWrtUbusAdapter @Inject constructor(
                         put("values", JSONObject().apply {
                             put("target", "Priority")
                             put("proto", "any")
-                            put("srchost", rule.mac)
-                            put("uploadkbps", rule.uploadKbps)
-                            put("downloadkbps", rule.downloadKbps)
+                            put("srchost", rule.deviceMac)
+                            put("uploadkbps", rule.uploadLimitKbps)
+                            put("downloadkbps", rule.downloadLimitKbps)
                         })
                     }
                 )
@@ -794,7 +793,7 @@ class OpenWrtUbusAdapter @Inject constructor(
                         put("type", "redirect")
                         put("values", JSONObject().apply {
                             put("name", rule.name)
-                            put("proto", rule.protocol.lowercase())
+                            put("proto", rule.protocol.toWireString(lowercase = true))
                             put("src", "wan")
                             put("src_dport", rule.externalPort.toString())
                             put("dest", "lan")
@@ -842,7 +841,7 @@ class OpenWrtUbusAdapter @Inject constructor(
                     rules.add(
                         PortForwardRule(
                             name = name,
-                            protocol = proto,
+                            protocol = PortProtocol.fromString(proto),
                             externalPort = srcDport,
                             internalIp = destIp,
                             internalPort = destPort

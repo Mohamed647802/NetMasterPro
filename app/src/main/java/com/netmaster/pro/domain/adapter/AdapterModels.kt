@@ -42,16 +42,16 @@ enum class NetworkMode(val displayName: String) {
     NR_ONLY("5G NR Only")
 }
 
-enum class LteBand(val frequency: String, val mhz: Int) {
-    BAND_1("2100 MHz", 2100),
-    BAND_3("1800 MHz", 1800),
-    BAND_7("2600 MHz", 2600),
-    BAND_8("900 MHz", 900),
-    BAND_20("800 MHz", 800),
-    BAND_28("700 MHz", 700),
-    BAND_38("2600 MHz TDD", 2600),
-    BAND_40("2300 MHz TDD", 2300),
-    BAND_41("2500 MHz TDD", 2500)
+enum class LteBand(val frequency: String, val mhz: Int, val bandNumber: Int) {
+    BAND_1("2100 MHz", 2100, 1),
+    BAND_3("1800 MHz", 1800, 3),
+    BAND_7("2600 MHz", 2600, 7),
+    BAND_8("900 MHz", 900, 8),
+    BAND_20("800 MHz", 800, 20),
+    BAND_28("700 MHz", 700, 28),
+    BAND_38("2600 MHz TDD", 2600, 38),
+    BAND_40("2300 MHz TDD", 2300, 40),
+    BAND_41("2500 MHz TDD", 2500, 41)
 }
 
 enum class MacFilterMode {
@@ -86,7 +86,18 @@ data class PortForwardRule(
 )
 
 enum class PortProtocol {
-    TCP, UDP, TCP_UDP
+    TCP, UDP, TCP_UDP;
+
+    fun toWireString(lowercase: Boolean = false): String =
+        if (lowercase) name.lowercase() else name
+
+    companion object {
+        fun fromString(value: String): PortProtocol = when (value.trim().uppercase()) {
+            "UDP" -> UDP
+            "TCP_UDP", "TCP/UDP", "BOTH", "ALL" -> TCP_UDP
+            else -> TCP
+        }
+    }
 }
 
 @Serializable

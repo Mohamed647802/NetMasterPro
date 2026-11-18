@@ -23,7 +23,7 @@ import com.netmaster.pro.ui.MainActivity
 class NetMasterWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         // Collect data
-        val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         @Suppress("DEPRECATION")
         val wifiInfo = wifiManager.connectionInfo
         val ssid = wifiInfo.ssid?.removePrefix("\"")?.removeSuffix("\"") ?: "غير متصل"

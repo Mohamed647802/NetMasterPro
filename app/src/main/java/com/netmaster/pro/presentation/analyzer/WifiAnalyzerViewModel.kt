@@ -1,5 +1,6 @@
 package com.netmaster.pro.presentation.analyzer
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.netmaster.pro.domain.adapter.RouterAdapter
@@ -117,21 +119,28 @@ class WifiAnalyzerViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Suppress("DEPRECATION")
     fun startScan(context: Context) {
         if (_uiState.value.scanInProgress) return
         _uiState.update { it.copy(scanInProgress = true) }
 
+        val appContext = getApplication<Application>()
         if (scanReceiver != null) {
-            try { context.unregisterReceiver(scanReceiver) } catch (_: Exception) {}
+            try { appContext.unregisterReceiver(scanReceiver) } catch (_: Exception) {}
         }
 
-        scanReceiver = object : BroadcastReceiver() {
+        val receiver = object : BroadcastReceiver() {
+            @SuppressLint("MissingPermission")
             override fun onReceive(ctx: Context?, intent: Intent?) {
-                try { ctx?.unregisterReceiver(this) } catch (_: Exception) {}
+                try { appContext.unregisterReceiver(this) } catch (_: Exception) {}
                 scanReceiver = null
 
-                val results = wifiManager.scanResults ?: emptyList()
+                val results = try {
+                    wifiManager.scanResults ?: emptyList()
+                } catch (_: SecurityException) {
+                    emptyList()
+                }
                 val neighbors = results.map { r ->
                     val freq = r.frequency
                     val ch = frequencyToChannel(freq)
@@ -160,12 +169,19 @@ class WifiAnalyzerViewModel @Inject constructor(
                 }
             }
         }
-        context.registerReceiver(
-            scanReceiver,
-            IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+        scanReceiver = receiver
+        ContextCompat.registerReceiver(
+            appContext,
+            receiver,
+            IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION),
+            ContextCompat.RECEIVER_EXPORTED
         )
-        @Suppress("DEPRECATION")
-        val started = wifiManager.startScan()
+        val started = try {
+            @Suppress("DEPRECATION")
+            wifiManager.startScan()
+        } catch (_: SecurityException) {
+            false
+        }
         if (!started) {
             // API 28+ returns false but results may still update
             _uiState.update { it.copy(scanInProgress = false) }

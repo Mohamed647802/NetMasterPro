@@ -136,9 +136,8 @@
 # APP MODEL CLASSES — keep all data/domain models
 # ================================================================
 -keep class com.netmaster.pro.data.model.** { *; }
--keep class com.netmaster.pro.domain.model.** { *; }
--keep class com.netmaster.pro.data.remote.dto.** { *; }
--keep class com.netmaster.pro.data.local.entity.** { *; }
+-keep class com.netmaster.pro.domain.adapter.** { *; }
+-keep class com.netmaster.pro.data.local.** { *; }
 
 # ================================================================
 # GENERAL ANDROID

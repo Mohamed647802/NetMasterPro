@@ -5,6 +5,8 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.netmaster.pro.domain.adapter.RouterAdapter
+import com.netmaster.pro.domain.adapter.pauseAllDevices
+import com.netmaster.pro.domain.adapter.resumeAllDevices
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.time.LocalTime
